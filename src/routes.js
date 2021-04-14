@@ -9,7 +9,6 @@ import IPP from "./components/IndividualProductPage.vue";
 import APP from "./components/AllProductsPage.vue";
 import EditProfile from "./components/EditProfile.vue";
 import CartItems from "./components/Cart/CartItems.vue";
-import CartEmpty from "./components/Cart/CartEmpty.vue";
 import CartPayment from "./components/Cart/CartPayment.vue";
 import CartShipping from "./components/Cart/CartShipping.vue";
 import CartConfirm from './components/Cart/CartConfirm.vue';
@@ -72,16 +71,11 @@ const router = new Router({
           name: "cartitems",
           props: true,
         },
-        {
-          path: "cartempty",
-          component: CartEmpty,
-          name: "cartempty",
-        },
         { 
-        path: 'cartpayment',
-        component: CartPayment,
-        name: 'cartpayment',
-        props: true
+          path: 'cartpayment',
+          component: CartPayment,
+          name: 'cartpayment',
+          props: true
         },
         {
           path: "cartshipping",
