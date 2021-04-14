@@ -1,8 +1,9 @@
 <template>
   <div id="welcome">
-    <div id="hello">Hello, {{ name }}!</div>
-    <div id="greeting">Welcome back!</div>
-    <div id="thanks">Thank you for being part of our community to preserve our mother Earth</div>
+    <div id="greeting">Welcome back, {{ name }}!</div>
+    <br>
+    <div id="thanks">Thank you for being a part of our community to preserve our mother Earth.</div>
+    <br>
     <div id="points">
       You have {{points}} EcoPoints
       <img
@@ -43,51 +44,31 @@ export default {
 
 <style scoped>
 #welcome {
-  width: 40%;
-  height: 250px;
   background: #81af93;
   border-radius: 25px;
-  position: absolute;
-  top: 170px;
-  left: 30%;
+  font-family: "EB Garamond";
+  padding: 30px;
 }
 #hello {
-  font-family: "EB Garamond";
-  padding: 2%;
   color: black;
   font-weight: bold;
   font-size: 24px;
-  text-transform: uppercase;
 }
 #greeting {
-  font-family: "EB Garamond";
-  padding: 2%;
   color: #00565e;
   font-weight: bold;
   font-size: 30px;
 }
 #thanks {
-  font-family: "EB Garamond";
-  padding: 2%;
   color: #00565e;
-  font-weight: normal;
-  font-size: 15px;
+  font-size: 20px;
 }
 #points {
-  font-family: "EB Garamond";
-  padding: 2%;
   color: black;
   font-weight: bold;
   font-size: 30px;
 }
 #icon {
   max-width: 30px;
-}
-#dp {
-  max-width: 80px;
-  position: absolute;
-  left: 5%;
-  top: 10%;
-  border-radius: 1000px;
 }
 </style>
