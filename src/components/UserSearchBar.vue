@@ -1,6 +1,11 @@
 <template>
   <div>
-    <input id="searchbar" placeholder="Search Products" v-on:keyup.enter="route($event)"/> 
+  <b-input-group id="searchBar" size="sm" class="mb-2">
+    <b-input-group-prepend is-text>
+      <b-icon icon="search"></b-icon>
+    </b-input-group-prepend>
+    <b-form-input type="search" placeholder="Search products" v-on:keyup.enter="route($event)"></b-form-input>
+  </b-input-group> 
   </div>
 </template>
 
@@ -21,7 +26,7 @@ export default {
 </script>
 
 <style scoped>
-#searchbar {
-  border-radius: 6px;
+#searchBar {
+  padding: 5px;
 }
 </style>
