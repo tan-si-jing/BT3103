@@ -1,51 +1,48 @@
 <template>
 <div>
   <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgba(237, 246, 249, 1);">
-    <a class="navbar-brand" href="/">
-    <img id = "logo" src="https://www.flaticon.com/svg/vstatic/svg/892/892890.svg?token=exp=1618039722~hmac=99b1b851ced0bb4aec0991ab9e5749f5">
-    Your Green Stop
+    <a class="navbar-brand" href="/user/home">
+      <img src="../../public/YGS-logo.svg" width="30" height="30" class="d-inline-block align-top" style="margin: 0px 10px;">
+      Your Green Stop
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin: 0px 10px;">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="false" style="color:#4e6657;font-family:EB Garamond; font-size: 17px">
+          <a class="nav-link dropdown-toggle active" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#4e6657; font-size: 17px">
             Products
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <b-input-group id="searchBar" size="sm" class="mb-2">
             <UserSearchBar/>
-            </b-input-group> 
             <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/user/products">View all products</a>
+            <a class="dropdown-item" href="/user/products">View all products</a>
           </div>
         </li>
       </ul>
-    </div>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown justify-content-end">
-          <a class="nav-link dropdown-toggle active" id="welcome-user" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <li class="nav-item dropdown justify-content-end" style="align-self: center;">
+          <a class="nav-link dropdown-toggle active" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#4e6657; font-size: 17px; margin-right: 10px;">
             Welcome, {{this.name}}!
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" id="view-profile" href="/user/profile"><b-icon style="margin-right: 15px;" icon="person-circle"></b-icon>View Profile</a>
-            <a class="dropdown-item" id="edit-profile" href="/user/editprofile"><b-icon style="margin-right: 15px;" icon="pencil-square"></b-icon>Edit Profile</a>
+            <a class="dropdown-item" href="#" style="padding: 0.5rem 1.5rem;"><b-icon style="margin-right: 15px;" icon="person-circle"></b-icon>View Profile</a>
+            <a class="dropdown-item" href="/user/editprofile" style="padding: 0.5rem 1.5rem;"><b-icon style="margin-right: 15px;" icon="pencil-square"></b-icon>Edit Profile</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item"  id="logout" v-on:click="logout" style="cursor: pointer;"><b-icon style="margin-right: 15px;" icon="power"></b-icon>Logout</a>
-          </div>
+            <a class="dropdown-item" v-on:click="logout" style="cursor: pointer;padding: 0.5rem 1.5rem;"><b-icon style="margin-right: 15px;" icon="power"></b-icon>Logout</a>
+            </div>
         </li>
-        <li class="nav-item justify-content-end" id="like-button">
+        <li class="nav-item justify-content-end">
           <LikedProducts/>
         </li>
-        <li>
-          <b-icon id="cart-logo" icon="cart-2" width="30px" height="30px"></b-icon>
+        <li class="nav-item justify-content-end">
+          <a href="/user/cart" class="btn btn-primary" style="background-color:rgba(237, 246, 249, 1); border-color: rgba(237, 246, 249, 1); margin:2px;" >
+            <b-icon icon="cart-2" style="color:#688A75;"></b-icon>
+          </a>
         </li>
       </ul>
-      
     </div>
   </nav>
   <router-view/>
@@ -54,11 +51,11 @@
 
 <script>
 import LikedProducts from './LikedProducts.vue'
-import {fb, database} from '../firebase';
 import UserSearchBar from './UserSearchBar.vue'
+import {fb, database} from '../firebase';
 
 export default {
-  data() {
+ data() {
     return {
       name: null
     }
@@ -72,7 +69,6 @@ export default {
       let id = fb.auth().currentUser.uid;
       database.collection("users").doc(id).get().then((doc) => {
         this.name = doc.data().name
-        console.log(doc.data())
       })
     },
     logout(){
@@ -92,57 +88,10 @@ export default {
 </script>
 
 <style scoped>
-#logo {
-    width: 30px;
-    height: 30px; 
-    margin-right: 7px;
-}
-
 .navbar-brand{
   font-weight: 700;
-  font-size: 16px;
-  text-transform:uppercase;
-  color: rgba(36,88,57,1);
+  font-size: 23px;
   font-family: EB Garamond;
-}
-
-#searchBar {
-  padding: 5px;
-}
-
-.dropdown-item {
-  padding: 7px 24px;
-   margin: 7px 0px;
-}
-
-#welcome-user{
-  color:#4e6657; 
-  margin-right: 10px;
-  font-family: EB Garamond;
-  text-transform: capitalize;
-  font-size: 16px;
-  font-weight:600;
-}
-
-#view-profile{
-  font-family: EB Garamond;
-}
-
-#edit-profile{
-  font-family: EB Garamond;
-}
-
-#logout{
-  font-family: EB Garamond;
-}
-
-#cart-logo{
-  margin-top:5px;
-  width:25px;
-  height:25px;
-}
-
-#like-button{
-  margin-right:15px;
+  font-variant-caps: small-caps;
 }
 </style>
