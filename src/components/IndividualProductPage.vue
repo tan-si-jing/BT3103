@@ -33,12 +33,12 @@
             </ul>
         </div>
     </div>
-    <footercomp></footercomp>
+    <Footer/>
 </div>
 </template>
 
 <script>
-import Footer from "./FooterComponent.vue";
+import Footer from "./Footer.vue";
 import {fb, database} from "../firebase.js";
 import LikeButton from './LikeButton.vue';
 import AddToCart from './AddToCart.vue';
@@ -64,7 +64,7 @@ export default {
         }   
     },
     components: {
-        footercomp: Footer,
+        Footer,
         likebutton: LikeButton,
         AddToCart,
         qtyCounter: QuantityCounter

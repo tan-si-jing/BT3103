@@ -66,15 +66,14 @@
       <router-link id="browseBtn" to="/user/home" exact>Continue Browsing</router-link>
     </div>
     </div>
-    <Footer></Footer>
+    <Footer/>
   </div>
 </template>
 
 <script>
-import Footer from "../FooterComponent.vue";
+import Footer from "../Footer.vue";
 import { fb, database } from "../../firebase.js";
 import CartRemoveBtn from "./CartRemoveBtn.vue";
-
 export default {
   data() {
     return {
@@ -158,7 +157,6 @@ export default {
   min-height: 900px;
   position: relative;
 }
-
 .cart-icon {
   position: absolute;
   font-size: 40px;
@@ -170,21 +168,17 @@ export default {
   line-height: 70px;
   vertical-align: middle;
   align-content: center;
-
   left: 25%;
   top: 14%;
 }
-
 hr {
   position: absolute;
   width: 47%;
   height: 0px;
   border-top: 2px dashed #006d77;
-
   top: 16%;
   left: 28%;
 }
-
 .card-icon {
   position: absolute;
   font-size: 35px;
@@ -195,11 +189,9 @@ hr {
   text-align: center;
   line-height: 70px;
   vertical-align: middle;
-
   left: 46%;
   top: 14%;
 }
-
 .tick-icon {
   position: absolute;
   font-size: 40px;
@@ -210,16 +202,13 @@ hr {
   text-align: center;
   line-height: 70px;
   vertical-align: middle;
-
   left: 71%;
   top: 14%;
 }
-
 .leaf-icon {
   font-size: 20px;
   color: #006d77;
 }
-
 #cartlist {
   width: 65%;
   align-items: center;
@@ -235,62 +224,51 @@ hr {
   overflow-y: scroll;
   padding-right: 0.5%;
 }
-
 #headings {
   display: flex;
   list-style-type: none;
   border-bottom: 1px solid black;
   padding: 2%;
 }
-
 #itemrow {
   display: flex;
   list-style-type: none;
 }
-
 ul {
   list-style-type: none;
 }
-
 li {
   flex: 1.5;
   text-align: center;
 }
-
 #productheader {
   flex: 8.5;
   text-align: center;
   margin-right: 10%;
 }
-
 #itemname {
   flex: 8.5;
   text-align: center;
   margin-right: 10%;
   display: flex;
 }
-
 #co2footprint {
   content: url("https://api.iconify.design/iwwa:co2.svg?height=30");
   vertical-align: -0.5em;
 }
-
 #details {
   margin-top: 1%;
   position: relative;
   float: right;
   margin-right: 18%;
 }
-
 #item_img {
   width: 80px;
   height: 80px;
 }
-
 #item_span {
   flex-basis: 200px;
 }
-
 #view_total {
   font-family: "Garamond";
   font-size: 15px;
@@ -300,7 +278,6 @@ li {
   border-radius: 5px;
   padding: 5px;
 }
-
 #checkout {
   font-family: "Garamond";
   font-size: 15px;
@@ -314,8 +291,6 @@ li {
   margin-right: -12%;
   margin-top: 12%;
 }
-
-
 #browse {
   font-family: "Garamond";
   font-size: 15px;
@@ -329,7 +304,6 @@ li {
   margin-right: -5%;
   margin-top: 12%;
 }
-
 /* these are for an empty cart */
 #empty-text {
   position: absolute;
@@ -342,18 +316,15 @@ li {
   color: #000000;
   text-align: center;
 }
-
 #browseBtn {
   position: absolute;
   top: 52%;
   left: 43%;
-
   font-family: "Garamond";
   font-size: 22px;
   color: white;
   background: #006d77;
   text-decoration: none;
-
   border-radius: 5px;
   padding: 8px;
 }

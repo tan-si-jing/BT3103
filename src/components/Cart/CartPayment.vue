@@ -27,13 +27,13 @@
       </div>
       </div>
     </div>
-    <Footer></Footer>
+    <Footer/>
   
   </div>
 </template>
 
 <script>
-import Footer from "../FooterComponent.vue";
+import Footer from "../Footer.vue";
 // import { fb, database } from "../../firebase.js";
 
 export default {

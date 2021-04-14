@@ -1,9 +1,9 @@
 <template>
-  <div>
-  <div class="editProfile" style="margin: 50px;">    
+  <div style="min-height: 100vh;">
+  <div class="editProfile" style="margin: 100px;">    
     <div class="intro h-100">
       <div class="h-100 align-items-center">
-        <h3 style="margin: 30px;">Profile settings</h3>
+        <h3 style="margin: 40px;">Profile settings</h3>
       </div>
     </div>
     <div class="profile-content">
@@ -46,7 +46,7 @@
 
 <script>
 import {fb, database} from '../firebase';
-import Footer from './FooterComponent.vue';
+import Footer from './Footer.vue';
 
 export default {
   data(){

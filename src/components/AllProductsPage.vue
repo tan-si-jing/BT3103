@@ -6,24 +6,24 @@
     />
     <div id="pagebody">
       <div id="filters">
-        <p id="filters-title">Filters</p>
-          <a class="nav-link dropdown-toggle active" id="price-range" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <p id="filters-title">Filters:</p>
+          <a class="nav-link dropdown-toggle active filters" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Price range
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <p> Minimum price </p>
-          <input type="number" v-model.lazy="price.minimum" required/>
-          <p class="maximum"> Maximum price </p>
-          <input type="number" v-model.lazy="price.maximum" required/>
+          <p style="margin-bottom: 3px;"> Minimum price </p>
+          <input type="number" placeholder="(min)" v-model.lazy="price.minimum" required/>
+          <p style="margin-bottom: 3px;"> Maximum price </p>
+          <input type="number" placeholder="(max)" v-model.lazy="price.maximum" required/>
           <br/>
           <button class="filter-button" v-on:click="filterPrice"> Filter </button>
-          <button class="clear-button" v-on:click="clearProducts"> Clear </button>
+          <button class="filter-button" v-on:click="clearProducts"> Clear </button>
         </div>
         <div>
-          <a class="nav-link dropdown-toggle active" id="shop-range" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle active filters" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Shop
           </a>
-          <div class="dropdown-menu" type="button"  aria-labelledby="dropdownMenuButton">
+          <div class="dropdown-menu" type="button" aria-labelledby="dropdownMenuButton">
             <ul id="shopList">
               <button id="shop-button" class="dropdown-item" v-on:click="clearProducts">All</button>
               <li id="shop" v-for="shop in shops" v-bind:key="shop.name">
@@ -44,15 +44,17 @@
               v-on:click="route($event)"
             />
             <br />
-            <span id="name_like">
+            <span>
               {{ product[1].name }}
               <likebutton v-bind:id="product[0]"></likebutton>
             </span>
-            <span id="cost">${{ product[1].price }}</span>
+            <div>
+            ${{ product[1].price }}
             <span id="productPoints">
               <i class="fa fa-leaf leaf-icon"></i>
               {{ product[1].points }} points
             </span>
+            </div>
             <br />
             <br />
           </li>
@@ -62,13 +64,12 @@
         <div id="noPdt">No products found.</div>
       </div>
     </div>
-    <footercomp></footercomp>
+    <Footer/>
   </div>
 </template>
 
 <script>
-import Footer from "./FooterComponent.vue";
-// import {fb, database} from './firebase';
+import Footer from "./Footer.vue";
 import { database } from "../firebase";
 import LikeButton from "./LikeButton.vue";
 export default {
@@ -88,7 +89,7 @@ export default {
     };
   },
   components: {
-    footercomp: Footer,
+    Footer,
     likebutton: LikeButton
   },
   methods: {
@@ -131,7 +132,6 @@ export default {
       this.products = this.originalProducts;
       var shopFilteredProducts = this.products.filter((product) => product[1].company_name == name)
       this.products = shopFilteredProducts;
-      console.log(this.products)
     },
 
     clearProducts: function(){
@@ -150,8 +150,7 @@ export default {
 </script>
 
 
-
- <style scoped>
+<style scoped>
 #pagebody {
   background-color: #d8e2dc;
   width: 100%;
@@ -164,38 +163,23 @@ export default {
   width: 100%;
   height: 40px;
   margin-top:0px;
- 
 }
 
 #filters-title{
  font-family:  EB Garamond;
- padding-top: 4px;
  float: left;
  padding-left: 20px;
- font-size: 20px;
+ font-size: 25px;
  color: white;
- text-transform: uppercase;
 }
 
-#price-range{  
+.filters{  
   color:white;
   font-family:EB Garamond;
-  text-transform: uppercase; 
-  font-size: 16px;
+  font-size: 17px;
   float:left;
   padding-top: 7px;
-  padding-left: 25px;
-  
-}
-
-#shop-range{
-  color:white;
-  font-family:EB Garamond;
-  text-transform: uppercase; 
-  font-size: 16px;
-  float:left;
-  padding-top: 7px;
-  padding-left: 25px;
+  padding-left: 25px; 
 }
 
 p{
@@ -204,32 +188,20 @@ p{
 }
 
 input{
-  margin-left: 20px;
-  margin-right: 20px;
-}
-
-.maximum{
-  margin-top: 10px;
+  margin: 5px 20px 10px;
 }
 
 .filter-button{
   margin-top: 20px;
   margin-left: 25px;
-  font-family: EB Garamond;
-  background: #688A75;
+  background-color: #688A75;
+  border-color: #688A75;
+  font-family: 'Work Sans';
+  color: white;
   border-radius: 10px;
   font-size: 15px;
   width: 80px;
-}
-
-.clear-button{
-  margin-top: 20px;
-  margin-left: 20px;
-  font-family: EB Garamond;
-  background: #688A75;
-  border-radius: 10px;
-  font-size: 15px;
-  width: 80px;
+  padding: 3px;
 }
 
 #shopList {
@@ -238,7 +210,8 @@ input{
   float:left;
   text-align: left;
   padding-left:0px;
-  font-size: 15px;
+  font-size: 16px;
+  margin-bottom: 0px;
 }
 
 #shop{
@@ -249,7 +222,6 @@ input{
   background-color: #81af93;
 }
 
-
 #pdtlist {
   width: 100%;
   margin: 0px;
@@ -257,20 +229,19 @@ input{
   display: flex;
   flex-wrap: wrap;
   list-style-type: none;
-  padding: 0;
+  padding: 20px 150px;
 }
 
 #pdt {
-  margin-top: 50px;
+  margin-top: 30px;
   text-align: center;
   font-size: 20px;
   flex-basis: 300px;
-  min-width: 33.3%;
-  max-width: 33.3%;
   font-family: "EB Garamond";
   font-size: 24px;
   font-weight: bold;
   color: #00565e;
+  padding: 0px 50px;
 }
 #cost {
   margin-left: 20%;
@@ -287,7 +258,6 @@ input{
   font-style: normal;
   font-weight: 500;
   font-size: 15px;
-
   margin-left:8%;
 }
 
@@ -296,13 +266,6 @@ input{
   color: #006d77;
 }
 
-#name_like {
-  display: flex;
-  /*justify-content: center;*/
-  gap: 10px;
-  margin-left: 30%;
-  align-items: center;
-}
 /* noPdt: style of page when no prdts found */
 #noPdt {
   font-family: "EB Garamond";
@@ -311,5 +274,9 @@ input{
   color: #00565e;
   text-align: center;
   padding: 5%;
+}
+
+.dropdown-menu {
+  padding:20px 10px;
 }
 </style>

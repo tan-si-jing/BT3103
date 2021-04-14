@@ -3,48 +3,49 @@ import { fb, database } from "../../../firebase.js";
 
 export default {
   extends: Bar,
-  data: () => ({
-    datacollection: {
-      labels: [],
-      datasets: [
-        {
-          label: "Footprint of Products Purchased",
-          backgroundColor: [
-            "#3e95cd",
-            "#8e5ea2",
-            "#3cba9f",
-            "#e8c3b9",
-            "#c45850",
-            "#2c3e50",
-          ],
-          data: [],
-        },
-      ],
-    },
-    options: {
-      legend: { display: false },
-      title: {
-        display: true,
-        text: "Footprint of Products Purchased",
-      },
-      scales: {
-        yAxes: [
+  data: function() {
+    return {
+      datacollection: {
+        labels: [],
+        datasets: [
           {
-            ticks: {
-              min: 0,
-            },
+            label: "Footprint",
+            backgroundColor: [
+              "#3e95cd",
+              "#8e5ea2",
+              "#3cba9f",
+              "#e8c3b9",
+              "#c45850",
+              "#2c3e50",
+            ],
+            data: [],
           },
         ],
       },
-      responsive: true,
-      maintainAspectRatio: true,
-    },
-  }),
+      options: {
+        legend: { display: false },
+        title: {
+          display: true,
+          text: "Footprint of Products Purchased",
+        },
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                min: 0,
+              },
+            },
+          ],
+        },
+        responsive: true,
+        maintainAspectRatio: false
+      }
+    }
+  },
   methods: {
     fetchItems: function() {
       var user_id = "";
       user_id = fb.auth().currentUser.uid;
-      //var prods = [];
 
       database
         .collection("purchased")
@@ -57,15 +58,15 @@ export default {
             if (!this.datacollection.labels.includes(pName)) {
               this.datacollection.labels.push(pName);
               this.datacollection.datasets[0].data.push(pFootprint);
-            } else {
-              //do nothing
             }
           });
         });
-      this.renderChart(this.datacollection, this.options);
     },
   },
   created() {
     this.fetchItems();
   },
-};
+  mounted () {
+    this.renderChart(this.datacollection, this.options)
+  }
+}

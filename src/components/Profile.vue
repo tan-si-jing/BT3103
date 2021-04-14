@@ -1,13 +1,17 @@
 <template>
   <div>
-    <Welcome />
+    <div id="top-container">
+    <Welcome style="grid-column: 2;  grid-row-start: 1;justify-self:center;"></Welcome>
     <button v-on:click="redeemPoints()" id="redeem">Redeem Eco-Points</button>
+    </div>
     <nav id="profnav">
-      <button v-on:click="showDash()" id="navbut1">Purchase Dashboard</button>
-      <button v-on:click="showHist()" id="navbut2">Purchase History</button>
-      <button v-on:click="showLead()" id="navbut3">Leaderboard</button>
+      <button v-on:click="showDash()" class="nav-btn">Purchase Dashboard</button>
+      <button v-on:click="showHist()" class="nav-btn">Purchase History</button>
+      <button v-on:click="showLead()" class="nav-btn">Leaderboard</button>
     </nav>
-    <div v-if="this.display == ''"></div>
+    <div v-if="this.display == ''">
+    <h3 style="font-weight: bold; margin: 30px;">Click the options above to view each section!</h3>
+    </div>
     <div v-else-if="this.display == 'Leaderboard'">
       <Leaderboard />
     </div>
@@ -20,12 +24,12 @@
     <div v-else-if="this.display == 'EcoPoints'">
       <EcoPoints />
     </div>
-    <Footer />
+    <Footer/>
   </div>
 </template>
 
 <script>
-import Footer from "./FooterComponent.vue";
+import Footer from "./Footer.vue";
 import Welcome from "./Welcome.vue";
 import EcoPoints from "./ProfileDashboards/EcoPoints.vue";
 import Leaderboard from "./ProfileDashboards/Leaderboard.vue";
@@ -82,50 +86,41 @@ export default {
 </script>
 
 <style scoped>
+#top-container {
+  padding: 60px; 
+  display: grid;
+  grid-template-columns: 30% auto 30%;
+  grid-template-rows: 275px auto 40px;
+  grid-auto-flow: column;
+  height: 70vh;
+}
+
 #redeem {
-  position: absolute;
-  width: 200px;
-  height: 40px;
-  left: 62%;
-  top: 500px;
   border-radius: 10px;
   font-family: "EB Garamond";
   font-size: 20px;
   color: #d8e2dc;
   background: #006d77;
+  grid-column-start: 2;
+  grid-row-start: 3;
+  justify-self: right;
+  width: 190px;
 }
+
 #profnav {
-  position: absolute;
-  width: 100%;
-  min-height: 30px;
-  top: 600px;
-  background: #81af93;
+  height: 40px;
+  background: #81AF93;
+  display: flex;
+  padding: 0px 20px;
+  margin-bottom: 30px;
 }
-#navbut1 {
+
+.nav-btn {
   font-family: "EB Garamond";
-  font-size: 20px;
-  color: black;
+  font-size: 22px;
+  color: white;
   background: #81af93;
-  position: absolute;
-  left: 30px;
   border: none;
-}
-#navbut2 {
-  font-family: "EB Garamond";
-  font-size: 20px;
-  color: black;
-  background: #81af93;
-  position: absolute;
-  left: 330px;
-  border: none;
-}
-#navbut3 {
-  font-family: "EB Garamond";
-  font-size: 20px;
-  color: black;
-  background: #81af93;
-  position: absolute;
-  left: 630px;
-  border: none;
+  padding: 0px 15px;
 }
 </style>

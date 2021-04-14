@@ -1,7 +1,7 @@
 <template>
   <div class="liked">
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" style="background-color:rgba(237, 246, 249, 1); border-color: rgba(237, 246, 249, 1);" data-toggle="modal" data-target="#likedProducts">
+        <button type="button" class="btn btn-primary" style="background-color:rgba(237, 246, 249, 1); border-color: rgba(237, 246, 249, 1); margin:2px;" data-toggle="modal" data-target="#likedProducts">
         <b-icon icon="suit-heart" style="color:#688A75;"></b-icon>
         </button>
 
@@ -27,7 +27,7 @@
                         </span>
                     </div>
                     <div style="flex: auto; text-align: right; margin: 2px 0px;">
-                    <h5 style="font-size: 17px; padding:0px 15px;">${{item.price.toFixed(2)}}</h5>
+                    <h5 style="font-size: 17px; padding:0px 15px;">${{parseFloat(item.price).toFixed(2)}}</h5>
                     </div>
                 </li>
                 </ul>
@@ -72,7 +72,7 @@ export default {
       }
   },
   created() {
-      //this.fetchLikedProducts();
+      this.fetchLikedProducts();
   }
 };
 </script>
@@ -86,7 +86,6 @@ export default {
 }
 .modal-content{
     background-color: #C1D9CA;
-    opacity: 0.9;
 }
 h5 {
     padding: 10px;

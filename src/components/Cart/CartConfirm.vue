@@ -27,19 +27,19 @@
       <!-- note: router-link to home page -->
       <router-link id="browseBtn" to="/user/home" exact>Continue Browsing</router-link>
     </div>
-    <footerCom />
+    <Footer/>
   </div>
 </template>
 
 <script>
-import Footer from "../FooterComponent.vue";
+import Footer from "../Footer.vue";
 export default {
   data() {
     return {
     };
   },
   components: {
-    footerCom: Footer,
+    Footer
   },
   methods: {
     getPoints: function() {

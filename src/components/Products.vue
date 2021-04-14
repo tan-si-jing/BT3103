@@ -7,7 +7,7 @@
     />
     <div id="pagebody">
       <div id="filters">
-        <p id="filters-title">Filters</p>
+        <p id="filters-title">Filters:</p>
         <a class="nav-link dropdown-toggle active" id="price-range" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Price range
         </a>
@@ -64,13 +64,13 @@
         <div id="noPdt">No products found.</div>
       </div>
     </div>
-    <footercomp></footercomp>
+    <Footer/>
   </div>
 </template>
 
 <script>
 import Header from "./Header.vue";
-import Footer from "./FooterComponent.vue";
+import Footer from "./Footer.vue";
 // import {fb, database} from './firebase';
 import { database } from "../firebase";
 export default {
@@ -91,7 +91,7 @@ export default {
   },
   components: {
     headercomp: Header,
-    footercomp: Footer
+    Footer
   },
   methods: {
     fetchProducts: function() {
@@ -177,7 +177,6 @@ export default {
  padding-left: 20px;
  font-size: 20px;
  color: white;
- text-transform: uppercase;
 }
 
 #price-range{  
