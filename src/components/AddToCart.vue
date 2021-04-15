@@ -16,8 +16,8 @@
                 </button>
             </div>
             <div class="modal-footer" style="border-top: none;">
-                <button type="button" class="btn btn-primary" v-on:click="$router.push('cartitems')">View Cart</button>
-                <button type="button" class="btn btn-primary">Continue Shopping</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click="$router.push('cartitems')">View Cart</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click="$router.push('products')">Continue Shopping</button>
             </div>
             </div>
         </div>

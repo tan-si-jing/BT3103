@@ -10,12 +10,12 @@
 export default {
     data(){
        return {
-           qty: 0
+           qty: 1
        } 
     },
     methods: {
         decrement: function() {
-            if (this.qty!=0) {
+            if (this.qty!=1) {
                 this.qty = this.qty-1;
                 this.$emit('counter', this.qty)
             }    

@@ -12,9 +12,9 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <p style="margin-bottom: 3px;"> Minimum price </p>
-          <input type="number" placeholder="(min)" v-model.lazy="price.minimum" required/>
+          <input type="number" v-model.lazy="price.minimum" required/>
           <p style="margin-bottom: 3px;"> Maximum price </p>
-          <input type="number" placeholder="(max)" v-model.lazy="price.maximum" required/>
+          <input type="number" v-model.lazy="price.maximum" required/>
           <br/>
           <button class="filter-button" v-on:click="filterPrice"> Filter </button>
           <button class="filter-button" v-on:click="clearProducts"> Clear </button>
@@ -42,11 +42,12 @@
               height="250px"
               :src="product[1].img_url"
               v-on:click="route($event)"
+              style="cursor: pointer;"
             />
             <br />
             <span>
-              {{ product[1].name }}
-              <likebutton v-bind:id="product[0]"></likebutton>
+              <a v-bind:id="product[0]" v-on:click="route($event)" style="cursor: pointer;">{{ product[1].name }}</a>
+              <likebutton v-bind:id="product[0]" v-bind:liked="liked"></likebutton>
             </span>
             <div>
             ${{ product[1].price }}
@@ -70,7 +71,7 @@
 
 <script>
 import Footer from "./Footer.vue";
-import { database } from "../firebase";
+import { fb, database } from "../firebase";
 import LikeButton from "./LikeButton.vue";
 export default {
   data() {
@@ -79,13 +80,12 @@ export default {
       originalProducts: [],
       shops: [],
       optionsAPP: ["PRICE RANGE", "SHOP"],
-      //user: fb.auth().currentUser,
-      //user_id: user.uid
       show: true,
       price:{
-        minimum: parseInt(''),
-        maximum: parseInt(''),
+        minimum: 0,
+        maximum: 0,
       },
+      liked: []
     };
   },
   components: {
@@ -122,6 +122,12 @@ export default {
         })
       })
     },
+    fetchLikedProducts: function() {
+      let user_id = fb.auth().currentUser.uid
+      database.collection("users").doc(user_id).get().then((doc)=> {
+        this.liked = doc.data().liked
+      })
+    },
     filterPrice: function(){
       this.products = this.originalProducts;
       var priceFilteredProducts = this.products.filter((product) => parseInt(product[1].price * 100)/100 >= this.price.minimum && parseInt(product[1].price * 100)/100 <= this.price.maximum);
@@ -145,6 +151,7 @@ export default {
   created() {
     this.fetchProducts();
     this.fetchCompanies();
+    this.fetchLikedProducts();
   }
 };
 </script>

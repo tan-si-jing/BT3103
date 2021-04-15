@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       userid: null,
-      isClicked: false,
+      isClicked: this.liked.includes(this.id)
     };
   },
   methods: {
@@ -48,11 +48,12 @@ export default {
             liked: firebase.firestore.FieldValue.arrayRemove(this.id),
           });
       }
-    },
+    }
   },
   props: {
     id: String,
-  },
+    liked: Array
+  }
 };
 </script>
 
