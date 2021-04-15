@@ -28,7 +28,7 @@
             Welcome, {{this.name}}!
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#" style="padding: 0.5rem 1.5rem;"><b-icon style="margin-right: 15px;" icon="person-circle"></b-icon>View Profile</a>
+            <a class="dropdown-item" href="/user/profile" style="padding: 0.5rem 1.5rem;"><b-icon style="margin-right: 15px;" icon="person-circle"></b-icon>View Profile</a>
             <a class="dropdown-item" href="/user/editprofile" style="padding: 0.5rem 1.5rem;"><b-icon style="margin-right: 15px;" icon="pencil-square"></b-icon>Edit Profile</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" v-on:click="logout" style="cursor: pointer;padding: 0.5rem 1.5rem;"><b-icon style="margin-right: 15px;" icon="power"></b-icon>Logout</a>
@@ -38,7 +38,7 @@
           <LikedProducts/>
         </li>
         <li class="nav-item justify-content-end">
-          <a href="/user/cart" class="btn btn-primary" style="background-color:rgba(237, 246, 249, 1); border-color: rgba(237, 246, 249, 1); margin:2px;" >
+          <a href="/user/cartitems" class="btn btn-primary" style="background-color:rgba(237, 246, 249, 1); border-color: rgba(237, 246, 249, 1); margin:2px;" >
             <b-icon icon="cart-2" style="color:#688A75;"></b-icon>
           </a>
         </li>

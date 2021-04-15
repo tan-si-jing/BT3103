@@ -24,7 +24,12 @@
 
       <ul id="productList">
         <li id="pdt" v-for="product in products" :key="product[0]">
-          <img id="productImage" v-bind:src="product[1].img_url" />
+          <img 
+            v-bind:id="product[0]"
+            width="250px"
+            height="250px"
+            v-bind:src="product[1].img_url"
+            v-on:click="route($event)" />
           <br />
           <span id="productName">
             {{ product[1].name }}
@@ -58,7 +63,13 @@ export default {
       products: [],
       likedProducts: [],
       userid: fb.auth().currentUser.uid, 
+      company_name: this.id, //took from userHome
     };
+  },
+  props: {
+    id: {
+      type: String,
+    }   
   },
   components: {
     likeBtn: LikeButton,
@@ -71,7 +82,9 @@ export default {
         .get()
         .then(snapshot => {
           snapshot.docs.forEach(doc => {
-            this.shopInfo.push(doc.data());
+            if (this.company_name === doc.data().name) {
+              this.shopInfo.push(doc.data()); 
+            }
           });
         });
       database
@@ -79,9 +92,15 @@ export default {
         .get()
         .then(snapshot => {
           snapshot.docs.forEach(doc => {
-            this.products.push([doc.id, doc.data()]);
+            if (this.company_name === doc.data().company_name) {
+              this.products.push([doc.id, doc.data()]);
+            }
           });
         });
+    },
+    route: function(event) {
+      let product_id = event.target.getAttribute("id");
+      this.$router.push({ name: "ipp", params: { id: product_id } });
     }
   },
   created() {
@@ -116,7 +135,7 @@ export default {
 }
 #shopTitle {
   position: absolute;
-  left: 70%;
+  left: 65%;
   top: 2%;
   font-family: EB Garamond;
   font-style: normal;
@@ -175,10 +194,6 @@ export default {
   justify-content: space-evenly;
   color: #00565e;
 }
-#productImage {
-  width: 250px;
-  height: 250px;
-}
 #productPrice {
   position: absolute;
   justify-content: space-evenly;
@@ -190,7 +205,7 @@ export default {
 }
 #productList {
   position: absolute;
-  top: 45%;
+  top: 50%;
   margin-left: 0%;
   display: flex;
   flex-wrap: wrap; 

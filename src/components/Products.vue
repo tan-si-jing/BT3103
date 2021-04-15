@@ -260,7 +260,7 @@ input{
   display: flex;
   flex-wrap: wrap;
   list-style-type: none;
-  padding: 0;
+  padding: 20px 50px;
 }
 
 #pdt {
