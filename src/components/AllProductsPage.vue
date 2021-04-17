@@ -243,7 +243,7 @@ input{
   margin-top: 30px;
   text-align: center;
   font-size: 20px;
-  flex-basis: 300px;
+  flex-basis: 33.33%;
   font-family: "EB Garamond";
   font-size: 24px;
   font-weight: bold;

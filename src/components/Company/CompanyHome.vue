@@ -53,8 +53,8 @@
           <br />
           <br />
           <div id="outer">
-            <div class="inner" style="padding-right: 5%"><button class="edit" v-on:click="routeEditPdt()" v-bind:id="product[0]">Edit</button></div>
-            <div class="inner"><remove-btn/></div>
+            <div class="inner" style="padding-right: 5%"><button class="edit" v-on:click="routeEditPdt($event)" v-bind:id="product[0]">Edit</button></div>
+            <div class="inner"><remove-btn v-bind:id="product[0]" /></div>
           </div>
         </li>
       </ul>
@@ -110,8 +110,10 @@ export default {
     routeEditDesc: function() {
       this.$router.push({path: '/company/editDescription'})
     },
-    routeEditPdt: function() {
-      this.$router.push({path: '/company/editProducts'})
+    routeEditPdt: function(event) {
+      
+      let doc_id = event.target.getAttribute("id");
+      this.$router.push({name: 'editProducts', params: {doc_id: doc_id}})
     },
     routeAddPdt: function() {
       this.$router.push({path: '/company/addProducts' })

@@ -20,14 +20,14 @@
           <div>
             <div class="form-group">
               <label>Price</label>
-              <input type="text" v-model="care" placeholder="Eg. 5.60" class="form-control">
+              <input type="text" v-model="price" placeholder="Eg. 5.60" class="form-control">
             </div>
           </div>
 
           <div>
             <div class="form-group">
               <label>Image URL</label>
-              <input type="text" v-model="image" placeholder="Insert image URL" class="form-control">
+              <input type="text" v-model="img_url" placeholder="Insert image URL" class="form-control">
             </div>
           </div>
 
@@ -61,14 +61,14 @@
 
            <div>
             <div class="form-group">
-              <label>Carbon footprint</label>
+              <label>Carbon footprint (in grams)</label>
               <input type="text" v-model="footprint" placeholder="Carbon footprint of the product" class="form-control">
             </div>
           </div>
 
           <div>
             <div class="form-group" style="text-align: right;">
-              <input type="submit" v-on:click="updateDetails()" value="Save Changes" class="btn btn-primary">
+              <input type="submit" v-on:click="addProduct()" value="Save Changes" class="btn btn-primary">
             </div>
           </div>
          
@@ -81,84 +81,58 @@
 </template>
 
 <script>
-// import {fb, database} from '../firebase';
+import {database} from '../../firebase';
 import Footer from '../Footer.vue';
 
 export default {
   data(){
     return {
-      /* account: {
-        name: null,
-        email: null
-      },
-      name:null,
-      email:null,
-      password:null,
-      confirmPassword:null,     */   
+      name: '',
+      price: 0,
+      img_url: '',
+      description: '',
+      ingred_spec: '',
+      pdt_spec: '',
+      care: '',
+      footprint: 0
     }
   },
   components: {
     Footer
   },
   methods: {
-    updateDetails() {
+    addProduct() {
+      // need to change company id, assumed to be 1 for now
+      // var company_id = fb.auth().currentUser;
 
-    },
-      /* fetchProfile() {
-        var user = fb.auth().currentUser;
-        database.collection("users").doc(user.uid).get().then((doc) => {
-            this.account.name = doc.data().name
-          })
-        this.account.email = user.email
-      },
-      updateProfile(){
-        var flag = false;
-        var user = fb.auth().currentUser;
 
-        if (this.password !== this.confirmPassword) {
-            flag = true;
-            alert("Passwords do not match!")
-        } else if (this.password !== null) {
-          user.updatePassword(this.password)
-          .catch(function(error) {
-            console.error(error);
-            flag = true;
-          }); 
-          this.alertUser(flag);
-        }       
+      let product = {}
+      product.name = this.name
+      product.price = this.price
+      product.img_url = this.img_url
+      product.description = this.description
+      product.ingred_spec = this.ingred_spec
+      product.pdt_spec = this.pdt_spec
+      product.care = this.care
+      product.footprint = this.footprint
+
+      // to calculate eco-points of product
+      var points = 1/(this.footprint) * 1000
+      product.points = points
         
-        if (this.email !== null) {
-          user.updateEmail(this.email)
-          .catch(function(error) {
-            console.error(error);
-            flag = true;
-          });
-          database.collection("users").doc(user.uid).update({
-            email:this.email
-          })
-          .catch((error) => {
-              console.error("Error updating document: ", error);
-              flag = true;
-          });
-          this.alertUser(flag);
-        }
+      //product.pdt_id = pdt.id
+      //product.company_id = 
+      //product.company_name = 
 
-        if (this.name !== null) {
-          database.collection("users").doc(user.uid).update({
-            name:this.name
-          })
-        }
-      },
-      alertUser(flag) {
-        if (!flag) {
-        this.$router.replace('/');
-        alert("Updated successfully! Sign in again with your new email and password");
-        }
-      } */
-  },
-  /* created() {
-    this.fetchProfile()
-  }  */
+      // adding this product to products collection
+      database.collection("products").doc().set(product)
+
+
+
+
+      this.$router.push({ name: "companyHome"});
+    }
+  }
 };
 </script>
 

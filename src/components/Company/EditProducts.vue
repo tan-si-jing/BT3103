@@ -20,7 +20,7 @@
           <div>
             <div class="form-group">
               <label>Price</label>
-              <input type="text" v-model="care" placeholder="Eg. 5.60" class="form-control">
+              <input type="text" v-model="price" placeholder="Eg. 5.60" class="form-control">
             </div>
           </div>
 
@@ -67,20 +67,25 @@
 </template>
 
 <script>
+import { database } from '../../firebase';
 // import {fb, database} from '../firebase';
 import Footer from '../Footer.vue';
 
 export default {
   data(){
     return {
-      /* account: {
-        name: null,
-        email: null
-      },
-      name:null,
-      email:null,
-      password:null,
-      confirmPassword:null,     */   
+      name: '',
+      price: 0,
+      description: '',
+      ingred_spec: '',
+      pdt_spec: '',
+      care: '',
+      updateProduct: {}
+    }
+  },
+  props: {
+    doc_id: {
+      type: String
     }
   },
   components: {
@@ -88,63 +93,29 @@ export default {
   },
   methods: {
     updateDetails() {
-
-    },
-      /* fetchProfile() {
-        var user = fb.auth().currentUser;
-        database.collection("users").doc(user.uid).get().then((doc) => {
-            this.account.name = doc.data().name
-          })
-        this.account.email = user.email
-      },
-      updateProfile(){
-        var flag = false;
-        var user = fb.auth().currentUser;
-
-        if (this.password !== this.confirmPassword) {
-            flag = true;
-            alert("Passwords do not match!")
-        } else if (this.password !== null) {
-          user.updatePassword(this.password)
-          .catch(function(error) {
-            console.error(error);
-            flag = true;
-          }); 
-          this.alertUser(flag);
-        }       
-        
-        if (this.email !== null) {
-          user.updateEmail(this.email)
-          .catch(function(error) {
-            console.error(error);
-            flag = true;
-          });
-          database.collection("users").doc(user.uid).update({
-            email:this.email
-          })
-          .catch((error) => {
-              console.error("Error updating document: ", error);
-              flag = true;
-          });
-          this.alertUser(flag);
-        }
-
-        if (this.name !== null) {
-          database.collection("users").doc(user.uid).update({
-            name:this.name
-          })
-        }
-      },
-      alertUser(flag) {
-        if (!flag) {
-        this.$router.replace('/');
-        alert("Updated successfully! Sign in again with your new email and password");
-        }
-      } */
-  },
-  /* created() {
-    this.fetchProfile()
-  }  */
+      database.collection("products").doc(this.doc_id).get().then((doc) => {this.updateProduct = doc.data()})
+      if (this.name) {
+        this.updateProduct.name = this.name;
+      }
+      if (this.price) {
+        this.updateProduct.price = this.price;
+      }
+      if (this.description) {
+        this.updateProduct.description = this.description;
+      }
+      if (this.ingred_spec) {
+        this.updateProduct.ingred_spec = this.ingred_spec;
+      }
+      if (this.pdt_spec) {
+        this.updateProduct.pdt_spec = this.pdt_spec;
+      }
+      if (this.care) {
+        this.updateProduct.care = this.care;
+      }
+      database.collection("products").doc(this.doc_id).set(this.updateProduct)
+      this.$router.push({ name: "companyHome"});
+    }
+  }
 };
 </script>
 

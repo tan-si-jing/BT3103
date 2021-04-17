@@ -1,12 +1,22 @@
 <template>
     <div>
-        <button>Remove</button>
+        <button v-on:click="removeProduct">Remove</button>
     </div>
 </template>
 
 <script>
+import { database } from '../../firebase'
 export default {
-    
+  props: {
+    id: {
+      type: String
+    }
+  },
+  methods: {
+    removeProduct: function () {
+      database.collection("products").doc(this.id).delete()
+    }
+  }
 }
 </script>
 
