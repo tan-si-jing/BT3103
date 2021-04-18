@@ -38,23 +38,23 @@ export default {
           });
         });
       //var usrArr = [];
+      console.log(this.users);
     },
-    getUserArray: async function() {
-      await database
+    getUserArray: function() {
+      database
         .collection("users")
         .doc(this.user_id)
         .get()
         .then(snapshot => {
-          this.usrArr = [
+          this.usrArr.push(
             snapshot.data().name,
             snapshot.data().points,
             this.user_id
-          ];
+          );
         });
       console.log(this.usrArr);
-      this.position = this.users.indexOf(this.usrArr) + 2;
     },
-    getCurrentStanding: function() {
+    getCurrentStanding: async function() {
       // var usrArr = [];
       // database
       //   .collection("users")
@@ -65,14 +65,21 @@ export default {
       //   });
       // console.log(usrArr);
       // var position = this.users.indexOf(usrArr) + 1;
-
+      // for (var i = 0; i < this.users.length; i++) {
+      //   if (this.users[i] == this.usrArr) {
+      //     this.position = i + 1;
+      //   }
+      // }
+      var allUsers = await this.users;
+      var thisUser = await this.usrArr;
+      this.position = allUsers.indexOf(thisUser, 0);
       alert("Your current rank is: " + this.position);
     }
   },
   async created() {
     await this.fetchUserData();
     await this.fetchUsers();
-    this.getUserArray();
+    await this.getUserArray();
   }
 };
 </script>
