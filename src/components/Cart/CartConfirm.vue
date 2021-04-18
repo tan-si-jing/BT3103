@@ -43,7 +43,7 @@ export default {
   methods: {
     getPoints: function() {
       return this.$route.params.points;    
-    },
+    }
   }
 };
 </script>
@@ -145,7 +145,7 @@ hr {
   border-color: #688a75;
   text-decoration: none;
   border-radius: 5px;
-  padding: 8px;
+  padding: 10px;
   margin: 20px;
 }
 </style>
