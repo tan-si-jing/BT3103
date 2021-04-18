@@ -111,7 +111,7 @@ export default {
       if (this.email) {
         database.collection("companies").doc('1').update({email: this.email})
       }
-      this.$router.push({ name: "companyHome"});
+      this.$router.push("/company/home");
     }
   }
 };

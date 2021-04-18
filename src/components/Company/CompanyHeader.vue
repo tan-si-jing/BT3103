@@ -13,11 +13,11 @@
       <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown justify-content-end" style="align-self: center;">
           <a class="nav-link dropdown-toggle active" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#4e6657; font-size: 17px; margin-right: 10px;">
-            Welcome, {{this.name}}!
+            {{this.name}}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <!-- <a class="dropdown-item" href="/user/profile" style="padding: 0.5rem 1.5rem;"><b-icon style="margin-right: 15px;" icon="person-circle"></b-icon>View Profile</a>
-            <a class="dropdown-item" href="/user/editprofile" style="padding: 0.5rem 1.5rem;"><b-icon style="margin-right: 15px;" icon="pencil-square"></b-icon>Edit Profile</a>
+            <!-- <a class="dropdown-item" href="/company/profile" style="padding: 0.5rem 1.5rem;"><b-icon style="margin-right: 15px;" icon="person-circle"></b-icon>View Profile</a>
+            <a class="dropdown-item" href="/company/editprofile" style="padding: 0.5rem 1.5rem;"><b-icon style="margin-right: 15px;" icon="pencil-square"></b-icon>Edit Profile</a>
             <div class="dropdown-divider"></div> -->
             <a class="dropdown-item" v-on:click="logout" style="cursor: pointer;padding: 0.5rem 1.5rem;"><b-icon style="margin-right: 15px;" icon="power"></b-icon>Logout</a>
             </div>
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import {fb, database} from '../../firebase';
+import {fb, database} from '../../firebase.js';
 
 export default {
  data() {
@@ -40,9 +40,8 @@ export default {
   },
   methods: {
     fetchUserData(){
-      //might need to change code for company?
       let id = fb.auth().currentUser.uid;
-      database.collection("users").doc(id).get().then((doc) => {
+      database.collection("companies").doc(id).get().then((doc) => {
         this.name = doc.data().name
       })
     },

@@ -14,7 +14,7 @@ export default {
   },
   methods: {
     removeProduct: function () {
-      database.collection("products").doc(this.id).delete()
+      database.collection("products").doc(this.id).delete().then(() => {location.reload()});
     }
   }
 }

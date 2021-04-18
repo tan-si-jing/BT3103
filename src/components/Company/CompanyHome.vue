@@ -1,24 +1,23 @@
 <template>
   <div>
-    <!-- <company-header/> -->
     <div id="content">
       <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
       <p id="picture">
-        <img id="shopImage" v-bind:src="shopInfo[0].img_url" />
+        <img id="shopImage" v-bind:src="shopInfo.img_url" />
       </p>
-      <p id="shopTitle">{{ shopInfo[0].name }}</p>
+      <p id="shopTitle">{{ shopInfo.name }}</p>
 
       <div>
         <ul id="shopInfo">
           <li style="text-decoration: underline; text-align: left">Objective:</li>
-          <li style="text-align: left">{{ shopInfo[0].description }}</li>
+          <li style="text-align: left">{{ shopInfo.description }}</li>
           <li style="text-decoration: underline; text-align: left">Production Materials:</li>
-          <li style="text-align: left">{{ shopInfo[0].production_materials }}</li>
+          <li style="text-align: left">{{ shopInfo.production_materials }}</li>
           <li style="text-decoration: underline; text-align: left">Contact us:</li>
-          <li style="text-align: left">Contact us at {{ shopInfo[0].contact }} or {{ shopInfo[0].email }}</li>
+          <li style="text-align: left">Contact us at {{ shopInfo.contact }} or {{ shopInfo.email }}</li>
           <li><button id="editShop" v-on:click="routeEditDesc()">Edit Description</button></li>
         </ul>
       </div>
@@ -64,51 +63,39 @@
 </template>
 
 <script>
-//import CompanyHeader from "./CompanyHeader.vue";
 import Footer from "../Footer.vue";
-import { database } from "../../firebase";
+import { fb, database } from "../../firebase";
 import RemoveBtn from './RemoveBtn.vue';
 
 export default {
   data() {
     return {
       shopInfo: [],
-      products: [],
-      //company_name:
+      products: []
     };
   },
   components: {
-    //CompanyHeader,
     Footer,
     RemoveBtn,
   },
   methods: {
-    //need to edit the way they fetch the shop name
     fetchItems: function() {
-      database
-        .collection("companies")
-        .get()
-        .then(snapshot => {
-          snapshot.docs.forEach(doc => {
-            if (doc.data().name === "The Social Space") {
-              this.shopInfo.push(doc.data()); 
-            }
+      database.collection("companies").doc(fb.auth().currentUser.uid).get().then((doc) => {
+        this.shopInfo = doc.data();
+        database
+          .collection("products")
+          .get()
+          .then(snapshot => {
+            snapshot.docs.forEach(doc => {
+              if (doc.data().company_id == this.shopInfo.company_id) {
+                this.products.push([doc.id, doc.data()]);
+              }
+            });
           });
-        });
-      console.log(this.shopInfo)
-      database
-        .collection("products")
-        .get()
-        .then(snapshot => {
-          snapshot.docs.forEach(doc => {
-            if (doc.data().company_name === "The Social Space") {
-              this.products.push([doc.id, doc.data()]);
-            }
-          });
-        });
+      })
     },
     routeEditDesc: function() {
-      this.$router.push({path: '/company/editDescription'})
+      this.$router.push('/company/editDescription')
     },
     routeEditPdt: function(event) {
       
@@ -116,7 +103,7 @@ export default {
       this.$router.push({name: 'editProducts', params: {doc_id: doc_id}})
     },
     routeAddPdt: function() {
-      this.$router.push({path: '/company/addProducts' })
+      this.$router.push('/company/addProducts')
     }
   },
   created() {
