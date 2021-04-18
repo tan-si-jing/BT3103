@@ -22,7 +22,11 @@ import EditDescription from "./components/Company/EditDescription.vue";
 import EditProducts from "./components/Company/EditProducts.vue";
 import AddProducts from "./components/Company/AddProducts.vue";
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import CompanyEditProfile from "./components/Company/EditProfile.vue";
+=======
+import CompanyProfile from "./components/Company/CompanyProfile.vue";
+>>>>>>> Stashed changes
 =======
 import CompanyProfile from "./components/Company/CompanyProfile.vue";
 >>>>>>> Stashed changes
@@ -142,6 +146,7 @@ const router = new Router({
         },
         {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
           path: "editprofile",
           component: CompanyEditProfile,
         },
@@ -151,6 +156,11 @@ const router = new Router({
           component: CompanyDashboard,
         },
         */
+=======
+          path: "dashboards",
+          component: CompanyProfile,
+        },
+>>>>>>> Stashed changes
 =======
           path: "dashboards",
           component: CompanyProfile,
@@ -198,7 +208,10 @@ router.beforeEach((to, from, next) => {
 });
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 export default router;
 =======
 export default router;

@@ -44,11 +44,14 @@ export default {
   },
   methods: {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     fetchUserData: function() {
       let id = fb.auth().currentUser.uid;
       database
         .collection("users")
 =======
+=======
+>>>>>>> Stashed changes
     // fetchUserData() {
     //   let id = fb.auth().currentUser.uid;
     //   database
@@ -63,6 +66,9 @@ export default {
       let id = await fb.auth().currentUser.uid;
       await database
         .collection("companies")
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
         .doc(id)
         .get()
@@ -70,9 +76,13 @@ export default {
           this.name = doc.data().name;
         });
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     },
     fetchProducts: function() {
       database
+=======
+      await database
+>>>>>>> Stashed changes
 =======
       await database
 >>>>>>> Stashed changes
@@ -85,10 +95,15 @@ export default {
           });
         });
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     },
     // redeemPoints: function() {
     //   this.display = "EcoPoints";
     // },
+=======
+      console.log(this.products);
+    },
+>>>>>>> Stashed changes
 =======
       console.log(this.products);
     },
@@ -104,8 +119,14 @@ export default {
     // }
   },
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   created() {
     this.fetchUserData();
+=======
+  async created() {
+    //await this.fetchUserData();
+    this.fetchProducts();
+>>>>>>> Stashed changes
 =======
   async created() {
     //await this.fetchUserData();
