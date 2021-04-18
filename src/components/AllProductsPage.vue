@@ -145,7 +145,7 @@ export default {
     },
     route: function(event) {
       let product_id = event.target.getAttribute("id");
-      this.$router.push({ name: "ipp", params: { id: product_id } });
+      this.$router.push({ name: "ipp", params: { id: product_id } }).then(()=>{location.reload()});
     }
   },
   created() {

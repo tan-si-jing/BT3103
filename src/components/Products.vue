@@ -36,7 +36,7 @@
       </div>
       <div v-if="products.length > 0">
         <ul id="pdtlist">
-          <li id="pdt" v-for="product in products" v-bind:key="product[0]">
+          <li class="pdt" v-for="product in products" v-bind:key="product[0]" v-bind:id="product[0]" v-on:click="route($event)">
             <img
               v-bind:id="product[0]"
               width="250px"
@@ -46,7 +46,7 @@
               style="cursor: pointer;"
             />
             <br />
-            <span id="name" v-on:click="notLoggedIn" style="cursor: pointer;">
+            <span class="name" style="cursor: pointer;">
               {{ product[1].name }}
             </span><br>
             <span id="cost">${{ product[1].price }}</span>
@@ -72,7 +72,6 @@
 <script>
 import Header from "./Header.vue";
 import Footer from "./Footer.vue";
-// import {fb, database} from './firebase';
 import { database } from "../firebase";
 export default {
   data() {
@@ -123,10 +122,11 @@ export default {
           this.shops.push(shop)
         })
       })
-    }
-    ,
-    notLoggedIn: function() {
-      alert("Please log in to view this product.")
+    },
+
+    route: function(event) {
+      let product_id = event.target.getAttribute("id");
+      this.$router.push({ name: "product", params: { id: product_id } }).then(()=>{location.reload()});
     },
 
     filterPrice: function(){
@@ -237,7 +237,7 @@ input{
   padding: 20px 150px;
 }
 
-#pdt {
+.pdt {
   margin-top: 30px;
   text-align: center;
   font-size: 20px;
@@ -248,6 +248,7 @@ input{
   color: #00565e;
   padding: 0px 50px;
 }
+
 #cost {
   margin-left: 20%;
   font-size: 25px;
