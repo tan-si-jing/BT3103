@@ -43,18 +43,39 @@ export default {
     SalesAnalysis
   },
   methods: {
+<<<<<<< Updated upstream
     fetchUserData: function() {
       let id = fb.auth().currentUser.uid;
       database
         .collection("users")
+=======
+    // fetchUserData() {
+    //   let id = fb.auth().currentUser.uid;
+    //   database
+    //     .collection("companies")
+    //     .doc(id)
+    //     .get()
+    //     .then(doc => {
+    //       this.name = doc.data().name;
+    //     });
+    // },
+    fetchProducts: async function() {
+      let id = await fb.auth().currentUser.uid;
+      await database
+        .collection("companies")
+>>>>>>> Stashed changes
         .doc(id)
         .get()
         .then(doc => {
           this.name = doc.data().name;
         });
+<<<<<<< Updated upstream
     },
     fetchProducts: function() {
       database
+=======
+      await database
+>>>>>>> Stashed changes
         .collection("products")
         .where("company_name", "==", this.name)
         .get()
@@ -63,10 +84,15 @@ export default {
             this.products.push([doc.id, doc.data()]);
           });
         });
+<<<<<<< Updated upstream
     },
     // redeemPoints: function() {
     //   this.display = "EcoPoints";
     // },
+=======
+      console.log(this.products);
+    },
+>>>>>>> Stashed changes
     showDash: function() {
       this.display = "SalesDash";
     },
@@ -77,8 +103,14 @@ export default {
     //   this.display = "Leaderboard";
     // }
   },
+<<<<<<< Updated upstream
   created() {
     this.fetchUserData();
+=======
+  async created() {
+    //await this.fetchUserData();
+    this.fetchProducts();
+>>>>>>> Stashed changes
   },
   beforeDestroy() {
     this.display = "";

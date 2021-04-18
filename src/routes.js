@@ -11,7 +11,7 @@ import EditProfile from "./components/EditProfile.vue";
 import CartItems from "./components/Cart/CartItems.vue";
 import CartPayment from "./components/Cart/CartPayment.vue";
 import CartShipping from "./components/Cart/CartShipping.vue";
-import CartConfirm from './components/Cart/CartConfirm.vue';
+import CartConfirm from "./components/Cart/CartConfirm.vue";
 import ISP from "./components/IndividualShopPage.vue";
 import Shop from "./components/Shop.vue";
 import EcoPoints from "./components/ProfileDashboards/EcoPoints.vue";
@@ -21,7 +21,11 @@ import CompanyLogin from "./components/Company/CompanyLogin.vue";
 import EditDescription from "./components/Company/EditDescription.vue";
 import EditProducts from "./components/Company/EditProducts.vue";
 import AddProducts from "./components/Company/AddProducts.vue";
+<<<<<<< Updated upstream
 import CompanyEditProfile from "./components/Company/EditProfile.vue";
+=======
+import CompanyProfile from "./components/Company/CompanyProfile.vue";
+>>>>>>> Stashed changes
 
 import { fb, database } from "./firebase.js";
 
@@ -52,7 +56,7 @@ const router = new Router({
     },
     {
       path: "/user",
-      meta: { requiresAuth: true, isCompany:false },
+      meta: { requiresAuth: true, isCompany: false },
       component: UserHeader,
       children: [
         {
@@ -74,10 +78,10 @@ const router = new Router({
           props: true,
         },
         {
-          path:"isp/:id",
+          path: "isp/:id",
           component: ISP,
           name: "isp",
-          props:true
+          props: true,
         },
         {
           path: "editprofile",
@@ -89,27 +93,27 @@ const router = new Router({
           name: "cartitems",
           props: true,
         },
-        { 
-          path: 'cartpayment',
+        {
+          path: "cartpayment",
           component: CartPayment,
-          name: 'cartpayment',
-          props: true
+          name: "cartpayment",
+          props: true,
         },
         {
           path: "cartshipping",
           component: CartShipping,
-          name: 'cartshipping',
-          props: true
+          name: "cartshipping",
+          props: true,
         },
         {
-          path: 'cartconfirm',
-          name: 'cartconfirm',
+          path: "cartconfirm",
+          name: "cartconfirm",
           component: CartConfirm,
-          props: true
+          props: true,
         },
         {
           path: "ecopoints",
-          component: EcoPoints
+          component: EcoPoints,
         },
       ],
     },
@@ -137,6 +141,7 @@ const router = new Router({
           component: AddProducts,
         },
         {
+<<<<<<< Updated upstream
           path: "editprofile",
           component: CompanyEditProfile,
         },
@@ -146,6 +151,11 @@ const router = new Router({
           component: CompanyDashboard,
         },
         */
+=======
+          path: "dashboards",
+          component: CompanyProfile,
+        },
+>>>>>>> Stashed changes
       ],
     },
   ],
@@ -159,27 +169,37 @@ router.beforeEach((to, from, next) => {
   if (requiresAuth && !currentUser) {
     next("/");
   } else if (isCompany && requiresAuth && currentUser) {
-    database.collection("companies").doc(currentUser.uid).get()
+    database
+      .collection("companies")
+      .doc(currentUser.uid)
+      .get()
       .then((docSnapshot) => {
         if (docSnapshot.exists) {
           next();
         } else {
-          next("/")
+          next("/");
         }
-      })
+      });
   } else if (requiresAuth && currentUser) {
-    database.collection("companies").doc(currentUser.uid).get()
+    database
+      .collection("companies")
+      .doc(currentUser.uid)
+      .get()
       .then((docSnapshot) => {
         if (docSnapshot.exists) {
           next("/company/home");
         } else {
-          next()
+          next();
         }
-      })
+      });
   } else {
     next();
   }
 });
 
+<<<<<<< Updated upstream
 
 export default router;
+=======
+export default router;
+>>>>>>> Stashed changes

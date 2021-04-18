@@ -3,6 +3,10 @@
     <div id="greeting">Welcome back, {{ name }}!</div>
     <br />
     <div id="thanks">Joined since April 2021</div>
+<<<<<<< Updated upstream
+=======
+    <br />
+>>>>>>> Stashed changes
     <div id="thanks">
       Thank you for being part of our community to preserve our mother earth.
       We reallly appreciate your effort in doing yout part to producing sustainable and environmentally friendly products for our customers to enjoy!
@@ -12,7 +16,11 @@
 </template>
 
 <script>
+<<<<<<< Updated upstream
 import { fb, database } from "../firebase.js";
+=======
+import { fb, database } from "../../firebase.js";
+>>>>>>> Stashed changes
 export default {
   data() {
     return {
@@ -21,15 +29,25 @@ export default {
     };
   },
   methods: {
+<<<<<<< Updated upstream
     fetchUserData: function() {
       let id = fb.auth().currentUser.uid;
       database
         .collection("users")
+=======
+    fetchUserData() {
+      let id = fb.auth().currentUser.uid;
+      database
+        .collection("companies")
+>>>>>>> Stashed changes
         .doc(id)
         .get()
         .then(doc => {
           this.name = doc.data().name;
+<<<<<<< Updated upstream
           //this.points = doc.data().points;
+=======
+>>>>>>> Stashed changes
         });
     }
   },
@@ -44,7 +62,11 @@ export default {
   background: #81af93;
   border-radius: 25px;
   font-family: "EB Garamond";
+<<<<<<< Updated upstream
   padding: 30px;
+=======
+  padding: 10px;
+>>>>>>> Stashed changes
 }
 #hello {
   color: black;

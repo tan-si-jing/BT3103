@@ -2,9 +2,9 @@
   <div>
     <div id="content">
       <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      />
       <p id="picture">
         <img id="shopImage" v-bind:src="shopInfo.img_url" />
       </p>
@@ -18,16 +18,22 @@
           <li style="text-align: left">{{ shopInfo.production_materials }}</li>
           <li style="text-decoration: underline; text-align: left">Contact us:</li>
           <li style="text-align: left">Contact us at {{ shopInfo.contact }} or {{ shopInfo.email }}</li>
-          <li><button id="editShop" v-on:click="routeEditDesc()">Edit Description</button></li>
+          <li>
+            <button id="editShop" v-on:click="routeEditDesc()">Edit Description</button>
+          </li>
+          <li>
+            <button id="editShop" v-on:click="routeDash()">View Dashboards</button>
+          </li>
         </ul>
       </div>
 
       <div id="productHeader">
         <div class="inner">Products:</div>
-        <div class="inner"><button id="addPdt" v-on:click="routeAddPdt()">Add Products</button></div>
+        <div class="inner">
+          <button id="addPdt" v-on:click="routeAddPdt()">Add Products</button>
+        </div>
       </div>
-      
-       
+
       <ul id="productList">
         <li id="pdt" v-for="product in products" v-bind:key="product[0]">
           <img
@@ -39,9 +45,8 @@
             style="cursor: pointer;"
           />
           <br />
-          <span id="name">
-            {{ product[1].name }}
-          </span><br>
+          <span id="name">{{ product[1].name }}</span>
+          <br />
           <span id="cost">${{ product[1].price }}</span>
           <span id="productPoints">
             <span id="leafIcon">
@@ -52,20 +57,24 @@
           <br />
           <br />
           <div id="outer">
-            <div class="inner" style="padding-right: 5%"><button class="edit" v-on:click="routeEditPdt($event)" v-bind:id="product[0]">Edit</button></div>
-            <div class="inner"><remove-btn v-bind:id="product[0]" /></div>
+            <div class="inner" style="padding-right: 5%">
+              <button class="edit" v-on:click="routeEditPdt($event)" v-bind:id="product[0]">Edit</button>
+            </div>
+            <div class="inner">
+              <remove-btn v-bind:id="product[0]" />
+            </div>
           </div>
         </li>
       </ul>
     </div>
-    <Footer/>
+    <Footer />
   </div>
 </template>
 
 <script>
 import Footer from "../Footer.vue";
 import { fb, database } from "../../firebase";
-import RemoveBtn from './RemoveBtn.vue';
+import RemoveBtn from "./RemoveBtn.vue";
 
 export default {
   data() {
@@ -76,34 +85,40 @@ export default {
   },
   components: {
     Footer,
-    RemoveBtn,
+    RemoveBtn
   },
   methods: {
     fetchItems: function() {
-      database.collection("companies").doc(fb.auth().currentUser.uid).get().then((doc) => {
-        this.shopInfo = doc.data();
-        database
-          .collection("products")
-          .get()
-          .then(snapshot => {
-            snapshot.docs.forEach(doc => {
-              if (doc.data().company_id == this.shopInfo.company_id) {
-                this.products.push([doc.id, doc.data()]);
-              }
+      database
+        .collection("companies")
+        .doc(fb.auth().currentUser.uid)
+        .get()
+        .then(doc => {
+          this.shopInfo = doc.data();
+          database
+            .collection("products")
+            .get()
+            .then(snapshot => {
+              snapshot.docs.forEach(doc => {
+                if (doc.data().company_id == this.shopInfo.company_id) {
+                  this.products.push([doc.id, doc.data()]);
+                }
+              });
             });
-          });
-      })
+        });
     },
     routeEditDesc: function() {
-      this.$router.push('/company/editDescription')
+      this.$router.push("/company/editDescription");
     },
     routeEditPdt: function(event) {
-      
       let doc_id = event.target.getAttribute("id");
-      this.$router.push({name: 'editProducts', params: {doc_id: doc_id}})
+      this.$router.push({ name: "editProducts", params: { doc_id: doc_id } });
     },
     routeAddPdt: function() {
-      this.$router.push('/company/addProducts')
+      this.$router.push("/company/addProducts");
+    },
+    routeDash: function() {
+      this.$router.push("/company/dashboards");
     }
   },
   created() {
@@ -179,7 +194,7 @@ export default {
   align-items: center;
   text-align: center;
   color: #00565e;
-  width:100%;
+  width: 100%;
 }
 #pdt {
   margin-top: 40px;
@@ -209,7 +224,7 @@ export default {
   font-style: normal;
   font-weight: 500;
   font-size: 15px;
-  margin-left:8%;
+  margin-left: 8%;
 }
 #leafIcon {
   width: 3%;
@@ -227,8 +242,8 @@ export default {
   top: 50%;
   margin-left: 0%;
   display: flex;
-  flex-wrap: wrap; 
-  list-style-type: none; 
+  flex-wrap: wrap;
+  list-style-type: none;
   align-items: center;
   width: 100%;
   box-sizing: border-box;
@@ -241,14 +256,14 @@ li {
 #editShop {
   border-radius: 10px;
   color: white;
-  background-color: #688A75;
-  border-color: #688A75;
+  background-color: #688a75;
+  border-color: #688a75;
 }
 #addPdt {
   border-radius: 10px;
   color: white;
-  background-color: #688A75;
-  border-color: #688A75;
+  background-color: #688a75;
+  border-color: #688a75;
   font-size: 24px;
   font-family: EB Garamond;
   margin-left: 5%;
@@ -258,17 +273,17 @@ li {
   text-align: center;
   vertical-align: middle;
 }
-.edit{
+.edit {
   color: white;
-  background-color: #688A75;
-  border-color: #688A75;
+  background-color: #688a75;
+  border-color: #688a75;
   border-radius: 10px;
 }
-#outer{
-  width:100%;
+#outer {
+  width: 100%;
   text-align: center;
 }
-.inner{
+.inner {
   display: inline-block;
 }
 </style>
