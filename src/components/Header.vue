@@ -1,5 +1,5 @@
 <template>
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgba(237, 246, 249, 1);">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgba(237, 246, 249, 1);padding: 20px 15px;">
   <a class="navbar-brand" href="/">
     <img src="../../public/YGS-logo.svg" width="30" height="30" class="d-inline-block align-top" style="margin: 0px 10px;">
     Your Green Stop
