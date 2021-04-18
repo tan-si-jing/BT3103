@@ -89,8 +89,7 @@ export default {
 
 <style scoped>
 #hist {
-  position: absolute;
-  top: 655px;
+  padding-bottom: 40px;
 }
 #item {
   padding-bottom: 0px;

@@ -39,8 +39,8 @@ export default {
         });
       //var usrArr = [];
     },
-    getUserArray: function() {
-      database
+    getUserArray: async function() {
+      await database
         .collection("users")
         .doc(this.user_id)
         .get()
@@ -52,6 +52,7 @@ export default {
           ];
         });
       console.log(this.usrArr);
+      this.position = this.users.indexOf(this.usrArr) + 2;
     },
     getCurrentStanding: function() {
       // var usrArr = [];
@@ -64,13 +65,13 @@ export default {
       //   });
       // console.log(usrArr);
       // var position = this.users.indexOf(usrArr) + 1;
-      this.position = this.users.indexOf(this.usrArr) + 1;
-      alert("Your current rank is: " + 2);
+
+      alert("Your current rank is: " + this.position);
     }
   },
-  created() {
-    this.fetchUserData();
-    this.fetchUsers();
+  async created() {
+    await this.fetchUserData();
+    await this.fetchUsers();
     this.getUserArray();
   }
 };
@@ -78,14 +79,12 @@ export default {
 
 <style scoped>
 #lead {
-  position: absolute;
-  top: 655px;
+  padding-bottom: 40px;
+  position: relative;
   left: 40%;
-  padding-bottom: 17px;
-  background-color: white;
 }
 ol {
-  padding: 5%;
+  padding: 2%;
   position: relative;
   top: 65px;
 }
@@ -100,7 +99,7 @@ button {
   background-color: #c1d9ca;
   position: absolute;
   top: 15px;
-  left: 5%;
+  left: 2%;
   width: 250px;
 }
 </style>
