@@ -94,7 +94,7 @@ export default {
                         for (let i=0; i < modalsBackdrops.length; i++) {
                             document.body.removeChild(modalsBackdrops[i]);
                         }
-                    this.$router.replace('user/home').then(() => location.reload());  
+                    this.$router.push('/user/home').then(() => location.reload());  
                 })
                 .catch(function(error) {
                     var errorCode = error.code;
@@ -129,7 +129,7 @@ export default {
                         .catch(function(error) {
                             console.error("Error writing document: ", error);
                         });
-                        this.$router.push('user/home').then(() => {location.reload()});
+                        this.$router.push('/user/home').then(() => {location.reload()});
                     })
                     .catch(function(error) {
                     var errorCode = error.code;
