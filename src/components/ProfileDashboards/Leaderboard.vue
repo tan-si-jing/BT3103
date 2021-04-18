@@ -55,17 +55,6 @@ export default {
       this.position = this.users.indexOf(this.usrArr) + 2;
     },
     getCurrentStanding: function() {
-      // var usrArr = [];
-      // database
-      //   .collection("users")
-      //   .doc(this.user_id)
-      //   .get()
-      //   .then(snapshot => {
-      //     usrArr = [snapshot.data().name, snapshot.data().points, this.user_id];
-      //   });
-      // console.log(usrArr);
-      // var position = this.users.indexOf(usrArr) + 1;
-
       alert("Your current rank is: " + this.position);
     }
   },
@@ -79,27 +68,21 @@ export default {
 
 <style scoped>
 #lead {
-  padding-bottom: 40px;
-  position: relative;
-  left: 40%;
+  padding-bottom: 17px;
 }
 ol {
-  padding: 2%;
-  position: relative;
-  top: 65px;
+  padding: 50px 30%;
 }
-
 li {
-  background-color: #c1d9ca;
+  background-color: rgb(237, 246, 249);
   border-radius: 10px;
-  width: 250px;
-  margin-bottom: 20px;
+  margin: 15px;
+  padding:15px;
 }
 button {
   background-color: #c1d9ca;
-  position: absolute;
-  top: 15px;
-  left: 2%;
   width: 250px;
+  border-radius:10px;
+  padding:10px;
 }
 </style>

@@ -1,7 +1,10 @@
 <template>
   <div id="hist">
     <h5>This section contains details regarding the carbon footprint of the items that you have purchased.</h5>
-    <div style="display: flex; justify-content: space-evenly;">
+    <div id="empty" v-if="purchased.length==0">
+      No items purchased yet :(
+    </div>
+    <div v-else style="display: flex; justify-content: space-evenly;">
       <div class="card">
         <h5 style="font-weight:bold;">Product with lowest footprint</h5>
         <img id="img1" :src="this.purchased[0].img_url" />
@@ -22,18 +25,34 @@
       </div>
     </div>
     <div id="chart">
-      <bar-chart></bar-chart>
+      <bar-chart v-if="loaded"
+      v-bind:chartData="chartData"
+      v-bind:options="options"></bar-chart> 
     </div>
   </div>
 </template>
 
 <script>
 import { fb, database } from "../../firebase.js";
-import BarChart from "./charts/FootBar.js";
+import BarChart from "./PurchDash.js";
 
 export default {
   components: {
     BarChart
+  },
+  props: {
+    chartData: {
+      type: Object,
+      default: null
+    },
+    options: {
+      type: Object,
+      default: null
+    },
+    loaded: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
@@ -71,7 +90,8 @@ export default {
   padding-top: 10px;
 }
 #img1 {
-  max-width: 200px;
+  width: 200px;
+  height: 200px;
   align-self: center;
 }
 
@@ -87,7 +107,7 @@ ul {
 }
 
 h5 {
-  padding: 10px;
+  padding:10px;
 }
 
 #pdtname {
@@ -95,8 +115,19 @@ h5 {
 }
 
 #chart {
-  width: 80%;
-  position: relative;
-  left: 10%;
+  width:80%;
+  margin: auto;
+}
+
+#empty {
+  margin: auto;
+  margin-top: 50px;
+  padding: 30px;
+  width: 30%;
+  border-radius: 20px;
+  background: rgb(237, 246, 249);
+  font-size: 20px;
+  font-weight:bold;
+  margin-bottom: 50px;
 }
 </style>

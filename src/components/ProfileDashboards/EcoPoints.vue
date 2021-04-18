@@ -2,10 +2,10 @@
   <div id="eco">
     <ul id="itemsList">
       <li id="listitem" v-for="i in rewards" :key="i.name">
-        {{i.name}}
-        <br />
-        Points Needed: {{i.points}}
-        <br />
+        <b style="font-size:20px;">{{i.name}}</b>
+        <br>
+        Points needed: {{i.points}}
+        <br>
         Code to redeem: {{i.code}}
       </li>
     </ul>
@@ -42,29 +42,23 @@ export default {
 
 <style>
 #eco {
-  position: absolute;
-  top: 655px;
-  background-color: white;
   margin-bottom: 1px;
 }
 #listitem {
-  padding-top: 2%;
-  padding-bottom: 2%;
-  position: relative;
-  left: 18%;
+  padding: 35px 10px;
   background-color: #c1d9ca;
-  margin-bottom: 2%;
-  margin-right: 3%;
+  margin: 15px 15px;
   flex-grow: 1;
   flex-basis: 300px;
+  border-radius:10px;
 }
-#img1 {
-  max-width: 100px;
-}
-
 #itemsList {
   list-style-type: none;
   display: flex;
   flex-wrap: wrap;
+  margin: auto;
+  margin-bottom: 30px;
+  padding-left: 0;
+  width: 80%
 }
 </style>
