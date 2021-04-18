@@ -4,6 +4,7 @@ import { fb, database } from "../../../firebase.js";
 export default {
   extends: Bar,
   data: () => ({
+    gotData: false,
     datacollection: {
       labels: [],
       datasets: [
@@ -37,7 +38,7 @@ export default {
         ],
       },
       responsive: true,
-      maintainAspectRatio: true,
+      maintainAspectRatio: false,
     },
   }),
   methods: {
@@ -69,5 +70,5 @@ export default {
   },
   mounted() {
     this.renderChart(this.datacollection, this.options);
-  }
+  },
 };

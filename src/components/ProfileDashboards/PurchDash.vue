@@ -7,7 +7,7 @@
         <img id="img1" :src="this.purchased[0].img_url" />
         <div id="pdtname">{{ this.purchased[0].name }}</div>
         <div>
-          <img src="../../../public/footprints.svg" width="25" height="20">
+          <img src="../../../public/footprints.svg" width="25" height="20" />
           {{ this.purchased[0].footprint }} g
         </div>
       </div>
@@ -16,7 +16,7 @@
         <img id="img1" :src="this.purchased[this.purchased.length - 1].img_url" />
         <div id="pdtname">{{ this.purchased[this.purchased.length - 1].name }}</div>
         <div>
-          <img src="../../../public/footprints.svg" width="25" height="20">
+          <img src="../../../public/footprints.svg" width="25" height="20" />
           {{ this.purchased[this.purchased.length - 1].footprint }} g
         </div>
       </div>
@@ -42,9 +42,9 @@ export default {
     };
   },
   methods: {
-    fetchPurchased: function() {
+    fetchPurchased: async function() {
       this.user_id = fb.auth().currentUser.uid;
-      database
+      await database
         .collection("purchased")
         .where("user_id", "==", this.user_id)
         .get()
@@ -53,7 +53,7 @@ export default {
             this.purchased.push(doc.data());
           });
         });
-      console.log(this.purchased);
+      this.purchased.sort((a, b) => (a.footprint > b.footprint ? 1 : -1));
     }
   },
   created() {
@@ -87,7 +87,7 @@ ul {
 }
 
 h5 {
-  padding:10px;
+  padding: 10px;
 }
 
 #pdtname {
@@ -95,6 +95,8 @@ h5 {
 }
 
 #chart {
-  width:80%;
+  width: 80%;
+  position: relative;
+  left: 10%;
 }
 </style>
