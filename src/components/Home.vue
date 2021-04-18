@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import {database} from "../firebase.js"
+import {fb, database} from "../firebase.js"
 import Header from './Header.vue'
 import Footer from './Footer.vue'
 
@@ -61,17 +61,17 @@ export default({
 
 	methods: {
 		fetchItems: function(){
-			database.collection("companies").get().then((querySnapShot) =>{
+			database.collection("companies").get().then((snapshot) =>{
 				let shop = {};
-				querySnapShot.forEach(doc => {
+				snapshot.forEach(doc => {
 					shop = doc.data();
 					this.shopsList.push(shop);
 				})
 			})
 		},
 		fetchnews: function(){
-			database.collection("newsfeed").get().then((querySnapShot) => {
-				querySnapShot.forEach(doc =>{
+			database.collection("newsfeed").get().then((snapshot) => {
+				snapshot.forEach(doc =>{
 					let news = doc.data();
 					this.newsfeed.push(news);
 				})
@@ -87,8 +87,21 @@ export default({
 	created(){
 		this.fetchItems(),
 		this.fetchnews()
+	},
+	beforeRouteEnter(to, from, next) {
+		if (fb.auth().currentUser) {
+			database.collection("companies").doc(fb.auth().currentUser.uid).get()
+				.then((docSnapshot) => {
+					if (docSnapshot.exists) {
+						next("/company/home");
+					} else {
+						next("/user/home")
+					}
+				})
+		} else {
+			next();
+		}
 	}
-
 })
 </script>
 

@@ -21,7 +21,7 @@
                 <li>
                     <img :src="item.img" width="90" height="90">
                     <div id="pdtCell" style="display: grid; margin: 2px 10px; align-content: start; text-align: left;">
-                        <h5 style="font-size: 17px; padding:0px;">{{item.name}}</h5>
+                        <h5 class="pdtName" v-on:click="route($event)" :id="item.id">{{item.name}}</h5>
                         <span style="justify-self: self-start;">
                             <img src="../../public/footprints.svg" width="25" height="20"> {{item.footprint}}g
                         </span>
@@ -52,15 +52,16 @@ export default {
       }
   },
   methods:{
-      fetchLikedProducts: function(){
-          this.userid = fb.auth().currentUser.uid;
-          database.collection("users").doc(this.userid).get().then(doc => {
+    fetchLikedProducts: function(){
+        this.userid = fb.auth().currentUser.uid;
+        database.collection("users").doc(this.userid).get().then(doc => {
             this.liked = []
             let pdtList = doc.data().liked;
             for (const pdt_id of pdtList) {
                 database.collection("products").doc(pdt_id).get().then(snapshot => {
                     let pdt = snapshot.data();
                     let pdtObject = {
+                        id: pdt_id,
                         img: pdt.img_url,
                         footprint: pdt.footprint,
                         price: pdt.price,
@@ -69,8 +70,12 @@ export default {
                     this.liked.push(pdtObject);
                 })
             }
-          });
-      }
+        });
+    },
+    route: function(event) {
+        let pdt_id = event.target.getAttribute("id");
+		this.$router.push({ name: "ipp", params: { id: pdt_id } });
+	}
   }
 };
 </script>
@@ -110,5 +115,10 @@ li {
     display: flex;
     padding: 15px;
     margin:10px;
+}
+.pdtName {
+    font-size: 17px; 
+    padding:0px; 
+    cursor: pointer;
 }
 </style>

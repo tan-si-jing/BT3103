@@ -16,7 +16,7 @@
       <Leaderboard />
     </div>
     <div v-else-if="this.display == 'PurchDash'">
-      <PurchDash />
+      <PurchDash v-bind:chartData="chartData" v-bind:options="options" v-bind:loaded="loaded"> </PurchDash>
     </div>
     <div v-else-if="this.display == 'PurchHist'">
       <PurchHist />
@@ -41,7 +41,27 @@ export default {
   data() {
     return {
       name: null,
-      display: ""
+      display: "",
+      loaded: false,
+      chartData: null,
+      options: {
+        legend: { display: false },
+        title: {
+          display: true,
+          text: "Footprint of Products Purchased",
+        },
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                min: 0,
+              },
+            },
+          ],
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+      }
     };
   },
   components: {
@@ -63,6 +83,42 @@ export default {
           this.name = doc.data().name;
         });
     },
+    fetchItems: function() {
+      let datacollection = {
+        labels: [],
+        datasets: [
+          {
+            label: "Footprint of Products Purchased",
+            backgroundColor: [
+              "#3e95cd",
+              "#8e5ea2",
+              "#3cba9f",
+              "#e8c3b9",
+              "#c45850",
+              "#2c3e50",
+            ],
+            data: [],
+          },
+        ],
+      }
+      var user_id = "";
+      user_id = fb.auth().currentUser.uid;
+      database
+        .collection("purchased")
+        .where("user_id", "==", user_id)
+        .get()
+        .then((snapshot) => {
+          snapshot.docs.forEach((doc) => {
+            var pName = doc.data().name;
+            var pFootprint = doc.data().footprint;
+            if (!datacollection.labels.includes(pName)) {
+              datacollection.labels.push(pName);
+              datacollection.datasets[0].data.push(pFootprint);
+            }
+          });
+        });
+      return datacollection;
+    },
     redeemPoints: function() {
       this.display = "EcoPoints";
     },
@@ -78,6 +134,16 @@ export default {
   },
   created() {
     this.fetchUserData();
+  },
+  async mounted () {
+    this.loaded = false
+    try {
+      const datacollection = await this.fetchItems();
+      this.chartData = datacollection
+      this.loaded = true
+    } catch (e) {
+      console.error(e)
+    }
   },
   beforeDestroy() {
     this.display = "";

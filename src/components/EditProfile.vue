@@ -1,5 +1,5 @@
 <template>
-  <div style="min-height: 100vh;">
+  <div>
   <div class="editProfile" style="margin: 100px;">    
     <div class="intro h-100">
       <div class="h-100 align-items-center">
@@ -19,6 +19,12 @@
               <input type="text"  v-model="email" :placeholder="this.account.email" class="form-control">
             </div>
           </div>
+          
+          <div class="col-sm">
+            <div class="form-group" style="text-align: right;">
+              <input type="submit" v-on:click="updateProfile" value="Save Changes" class="btn btn-primary">
+            </div>
+          </div>
 
           <div class="col-sm">
             <div class="form-group">
@@ -34,9 +40,10 @@
 
           <div class="col-sm">
             <div class="form-group" style="text-align: right;">
-              <input type="submit" v-on:click="updateProfile" value="Save Changes" class="btn btn-primary">
+              <input type="submit" v-on:click="updatePassword" value="Update Password" class="btn btn-primary">
             </div>
           </div>
+          
         </div>
       </div> 
     </div>
@@ -73,35 +80,19 @@ export default {
         this.account.email = user.email
       },
       updateProfile(){
-        var flag = false;
         var user = fb.auth().currentUser;
 
-        if (this.password !== this.confirmPassword) {
-            flag = true;
-            alert("Passwords do not match!")
-        } else if (this.password !== null) {
-          user.updatePassword(this.password)
-          .catch(function(error) {
-            console.error(error);
-            flag = true;
-          }); 
-          this.alertUser(flag);
-        }       
-        
         if (this.email !== null) {
           user.updateEmail(this.email)
-          .catch(function(error) {
-            console.error(error);
-            flag = true;
-          });
+            .catch(function(error) {
+              console.error(error);
+            });
           database.collection("users").doc(user.uid).update({
-            email:this.email
-          })
-          .catch((error) => {
-              console.error("Error updating document: ", error);
-              flag = true;
-          });
-          this.alertUser(flag);
+              email: this.email
+            })
+            .catch((error) => {
+                alert("Error updating document: " +  error);
+            });
         }
 
         if (this.name !== null) {
@@ -109,11 +100,21 @@ export default {
             name:this.name
           })
         }
+        
+        location.reload()
+        alert("Updated!")
       },
-      alertUser(flag) {
-        if (!flag) {
-        this.$router.replace('/');
-        alert("Updated successfully! Sign in again with your new email and password");
+      updatePassword(){
+        var user = fb.auth().currentUser;
+
+        if (this.password !== this.confirmPassword) {
+            alert("Passwords do not match!")
+        } else if (this.password !== null) {
+          user.updatePassword(this.password)
+          .catch(function(error) {
+            console.error(error);
+          });
+          alert("Password updated!")
         }
       }
   },

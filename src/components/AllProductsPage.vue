@@ -71,7 +71,7 @@
 
 <script>
 import Footer from "./Footer.vue";
-import { fb, database } from "../firebase";
+import { fb, database } from "../firebase.js";
 import LikeButton from "./LikeButton.vue";
 export default {
   data() {
