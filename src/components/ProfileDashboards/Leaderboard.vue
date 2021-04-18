@@ -37,24 +37,25 @@ export default {
             this.users.push([doc.data().name, doc.data().points, doc.id]);
           });
         });
-      //var usrArr = [];
     },
-    getUserArray: async function() {
-      await database
+    getUserArray: function() {
+      database
         .collection("users")
         .doc(this.user_id)
         .get()
         .then(snapshot => {
-          this.usrArr = [
-            snapshot.data().name,
+          this.usrArr.push(
+            [snapshot.data().name,
             snapshot.data().points,
-            this.user_id
-          ];
+            this.user_id]
+          );
         });
       console.log(this.usrArr);
-      this.position = this.users.indexOf(this.usrArr) + 2;
     },
-    getCurrentStanding: function() {
+    getCurrentStanding: async function() {
+      var allUsers = await this.users;
+      var thisUser = await this.usrArr;
+      this.position = allUsers.indexOf(thisUser, 0);
       alert("Your current rank is: " + this.position);
     }
   },
@@ -62,6 +63,7 @@ export default {
     await this.fetchUserData();
     await this.fetchUsers();
     this.getUserArray();
+    await this.getUserArray();
   }
 };
 </script>
