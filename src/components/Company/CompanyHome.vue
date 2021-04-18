@@ -121,7 +121,7 @@ export default {
   left: 0px;
 }
 #picture {
-  width: 55%;
+  width: 50%;
   height: 35%;
   left: 5%;
   top: 5%;
@@ -138,7 +138,7 @@ export default {
 }
 #shopTitle {
   position: absolute;
-  left: 70%;
+  left: 65%;
   top: 4%;
   font-family: EB Garamond;
   font-style: normal;
@@ -151,7 +151,7 @@ export default {
 }
 #shopInfo {
   position: absolute;
-  left: 64%;
+  left: 60%;
   top: 10%;
   font-family: EB Garamond;
   font-style: normal;
