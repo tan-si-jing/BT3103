@@ -1,8 +1,11 @@
 <template>
   <div id="hist">
-    <ul>
-      <h3>Thank you for these purchases which have helped to make the world a more sustainable place!</h3>
-      <li id="item" v-for="j in products" :key="j.name">
+    <h5>Thank you for these purchases which have helped to make the world a more sustainable place!</h5>
+    <div id="empty" v-if="purchased.length==0">
+      No items purchased yet :(
+    </div>
+    <ul id="itemsList">  
+      <li id="item" v-for="j in purchased" :key="j.name">
         <img id="img1" v-bind:src="j.img_url" />
         <ul>
           <li id="description">{{ j.name }} x {{ j.qty }}</li>
@@ -23,67 +26,26 @@ export default {
   data() {
     return {
       user_id: null,
-      // product_ids: [],
-      products: []
-      // purchased: [],
+      purchased: [],
     };
   },
   methods: {
-    fetchUserData: function() {
+    fetchPurchased: function() {
       this.user_id = fb.auth().currentUser.uid;
-    },
-    fetchProducts: function() {
       database
         .collection("purchased")
         .where("user_id", "==", this.user_id)
         .get()
         .then(snapshot => {
           snapshot.docs.forEach(doc => {
-            this.products.push(doc.data());
+            this.purchased.push(doc.data());
           });
         });
-
-      //console.log(this.product_ids);
-      //console.log(this.products);
-      //console.log(this.products[4]);
-      //   ids.forEach(x => {
-      //     this.purchased.push(products[x - 1]);
-      //   });
     }
-    // fetchPurchased: function() {
-    //   database
-    //     .collection("products")
-    //     .where("pdt_id", "in", [1, 2])
-    //     .get()
-    //     .then((snapshot) => {
-    //       snapshot.docs.forEach((doc) => {
-    //         this.products.push(doc.data());
-    //       });
-    //     });
-    //   //console.log(this.products[0]);
-    //   // this.product_ids.forEach(x => {
-    //   //   this.purchased.push(this.products[x - 1]);
-    //   // });
-    // },
-    // fetchPurchased: function() {
-    //   var arr = [];
-    //   this.products.forEach(x => {
-    //     arr.push(x);
-    //   });
-    //   console.log(arr);
-    //   this.purchased = arr;
-    // }
   },
   created() {
-    this.fetchUserData();
-    // this.fetchProductIDs();
-    // console.log(this.product_ids);
-    this.fetchProducts();
-    //this.fetchPurchased();
+    this.fetchPurchased();
   }
-  // mounted() {
-  //   this.fetchPurchased();
-  // },
 };
 </script>
 
@@ -92,19 +54,24 @@ export default {
   padding-bottom: 40px;
 }
 #item {
-  padding-bottom: 0px;
-  padding-top: 20px;
-  background: #c1d9ca;
-  border-radius: 10px;
-  margin: 10px 0;
-  position: relative;
-  left: 30%;
-  width: 40%;
+  padding: 35px;
+  background-color: #c1d9ca;
+  margin: 30px;
+  flex-grow: 1;
+  flex-basis: 300px;
+  border-radius:15px;
 }
+
+#itemsList {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  padding:30px;
+}
+
 #img1 {
-  position: relative;
-  left: 4%;
-  max-width: 170px;
+  min-width: 170px;
+  max-height: 170px;
 }
 #img2 {
   max-width: 15px;
@@ -113,10 +80,22 @@ export default {
 ul {
   list-style-type: none;
   padding-bottom: 30px;
+  padding-left: 0;
 }
 
 #description {
   padding: 1%;
   text-transform: capitalize;
+}
+
+#empty {
+  margin: auto;
+  margin-top: 50px;
+  padding: 30px;
+  width: 30%;
+  border-radius: 20px;
+  background: rgb(237, 246, 249);
+  font-size: 20px;
+  font-weight:bold;
 }
 </style>

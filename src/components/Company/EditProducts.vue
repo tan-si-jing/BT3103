@@ -113,7 +113,7 @@ export default {
         this.updateProduct.care = this.care;
       }
       database.collection("products").doc(this.doc_id).set(this.updateProduct)
-      this.$router.push({ name: "companyHome"});
+      this.$router.push("/company/home");
     }
   }
 };

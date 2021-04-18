@@ -37,8 +37,6 @@ export default {
             this.users.push([doc.data().name, doc.data().points, doc.id]);
           });
         });
-      //var usrArr = [];
-      console.log(this.users);
     },
     getUserArray: function() {
       database
@@ -55,21 +53,6 @@ export default {
       console.log(this.usrArr);
     },
     getCurrentStanding: async function() {
-      // var usrArr = [];
-      // database
-      //   .collection("users")
-      //   .doc(this.user_id)
-      //   .get()
-      //   .then(snapshot => {
-      //     usrArr = [snapshot.data().name, snapshot.data().points, this.user_id];
-      //   });
-      // console.log(usrArr);
-      // var position = this.users.indexOf(usrArr) + 1;
-      // for (var i = 0; i < this.users.length; i++) {
-      //   if (this.users[i] == this.usrArr) {
-      //     this.position = i + 1;
-      //   }
-      // }
       var allUsers = await this.users;
       var thisUser = await this.usrArr;
       this.position = allUsers.indexOf(thisUser, 0);
@@ -79,6 +62,7 @@ export default {
   async created() {
     await this.fetchUserData();
     await this.fetchUsers();
+    this.getUserArray();
     await this.getUserArray();
   }
 };
@@ -86,27 +70,21 @@ export default {
 
 <style scoped>
 #lead {
-  padding-bottom: 40px;
-  position: relative;
-  left: 40%;
+  padding-bottom: 17px;
 }
 ol {
-  padding: 2%;
-  position: relative;
-  top: 65px;
+  padding: 50px 30%;
 }
-
 li {
-  background-color: #c1d9ca;
+  background-color: rgb(237, 246, 249);
   border-radius: 10px;
-  width: 250px;
-  margin-bottom: 20px;
+  margin: 15px;
+  padding:15px;
 }
 button {
   background-color: #c1d9ca;
-  position: absolute;
-  top: 15px;
-  left: 2%;
   width: 250px;
+  border-radius:10px;
+  padding:10px;
 }
 </style>

@@ -21,7 +21,7 @@
             <ul>
                 <li id="name"><b>{{this.pdt.data.name}}</b>
                 <likebutton v-bind:id="id" v-bind:liked="liked"></likebutton></li>
-                <li id="company_name"> From: {{this.company_name}}</li><br><br>
+                <li id="company_name" v-on:click="route()" style="cursor: pointer; text-decoration: underline;"> From: {{this.company_name}}</li><br><br>
                 <li id="green"><u>Description</u></li>
                 <li id="black">{{this.pdt.data.description}}</li><br>
                 <li id="green"><u>Ingredient Specifications</u></li>
@@ -51,7 +51,7 @@ export default {
                 pdtID: this.id,
                 data: []
             },
-            company_id: '',
+            company_id: 0,
             company_name: '',
             add_product: [this.id, 1],
             liked: []
@@ -86,7 +86,7 @@ export default {
             .get()
             .then((snapshot) => {
                 snapshot.docs.forEach((doc) => {
-                    if (doc.id == this.company_id) {
+                    if (doc.data().company_id == this.company_id) {
                         this.company_name = doc.data().name;
                     }
                 });
@@ -100,19 +100,22 @@ export default {
         },
         onCounter: function(quantity) {
             this.add_product[1] = quantity;
-        }
+        },
+        route: function() {
+			this.$router.push({ name: "isp", params: { id: this.company_name } });
+		}
     },
     created() {
         this.fetchItems(),
         this.fetchCompany(),
         this.fetchLikedProducts()
-  },
+    },
 }
 </script>
 
 
 
- <style scoped>
+<style scoped>
 
 #left-side {
     background-color: #D8E2DC;
@@ -121,9 +124,8 @@ export default {
     font-family: 'EB Garamond';
     font-size: 22px;
     float: left;
+    padding-left: 7%;
 }
-
-
 
 #productimg {
     width: 350px;
@@ -178,6 +180,7 @@ img {
     min-height: 850px; 
     font-family: 'EB Garamond';
     font-size: 22px;
+    padding-right: 5%;
 }
 
 #name {

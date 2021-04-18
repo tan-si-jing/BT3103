@@ -27,9 +27,9 @@
 </template>
 
 <script>
-import Header from '../Header.vue'
-import Footer from '../Footer.vue'
-import {fb , database} from '../../firebase'
+import Header from './Header.vue'
+import Footer from './Footer.vue'
+import {fb} from '../firebase'
 export default {
   name: "Login",
   data(){
@@ -50,14 +50,7 @@ export default {
           } else {
             fb.auth().signInWithEmailAndPassword(this.email, this.password)
                 .then(() => {
-                    database.collection("companies").doc(fb.auth().currentUser.uid).get()
-                    .then((docSnapshot) => {
-                        if (docSnapshot.exists) {
-                            this.$router.replace('company/home').then(() => location.reload());  
-                        } else {
-                            this.$router.replace('user/home').then(() => location.reload());
-                        }
-                    });
+                    this.$router.replace('company/home').then(() => location.reload());  
                 })
                 .catch(function(error) {
                     var errorCode = error.code;

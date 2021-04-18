@@ -28,15 +28,15 @@
           <li v-for="item in products" v-bind:key="item.id">
             <ul id="itemrow">
               <li id="itemname">
-                <span id="item_span"><img id="item_img" :src="item.img" /></span
-                ><br />
-                <span id="item_span"
-                  ><b>{{ item.name }}</b
-                  ><br />
-                  <a id="co2footprint"></a
-                  ><span> {{ item.footprint }}g</span></span
-                ><br />
-                <span id="item_span"><CartRemoveBtn v-bind:pdt_id="item.id">Remove</CartRemoveBtn></span>
+                <span class="item_span"><img id="item_img" :src="item.img" /></span>
+                <br />
+                <span class="item_span">
+                <b v-on:click="route($event)" :id="item.id" style="cursor: pointer;">{{ item.name }}</b>
+                <br />
+                <a id="co2footprint"></a>
+                <span> {{ item.footprint }}g</span></span>
+                <br />
+                <span class="item_span"><CartRemoveBtn v-bind:pdt_id="item.id">Remove</CartRemoveBtn></span>
               </li>
               <li>${{ item.price }}</li>
               <li>{{ item.qty }}</li>
@@ -58,11 +58,11 @@
       </div>
     </div>
     <!-- if this.products is an empty object-->
-    <div v-if="Object.keys(this.products).length == 0 && this.loading==false">
-        <p id="empty-text"> Your cart is empty.</p><br>
+    <div id="empty" v-if="Object.keys(this.products).length == 0 && this.loading==false">
+      <p id="empty-text"> Your cart is empty :(</p>
 
       <!-- note: router-link to home page -->
-      <router-link id="browseBtn" to="/user/home" exact>Continue Browsing</router-link>
+      <router-link id="browseBtn" to="/user/products" exact>Continue Browsing</router-link>
     </div>
     </div>
     <Footer/>
@@ -95,11 +95,12 @@ export default {
     async retrieveCart() {
       let userid = fb.auth().currentUser.uid;
       const doc = await database.collection("cart").doc(userid).get()
-      this.cart = doc.data();
       let productsObj =  {}
-      // once this.cart has been defined with the products in the cart, retrieve those products from database
-      const snapshot = await database.collection("products").get()
-      snapshot.docs.forEach( (doc) => {
+      if (doc.exists) {
+        this.cart = doc.data();
+        // once this.cart has been defined with the products in the cart, retrieve those products from database
+        const snapshot = await database.collection("products").get()
+        snapshot.docs.forEach( (doc) => {
             let data = doc.data();
             let pdtID = data.pdt_id;
             if (this.cart[pdtID] != null) {
@@ -114,9 +115,10 @@ export default {
                 id: pdtID,
               };
             }
-      });
+        });
+      }
       this.loading = false;
-      return productsObj;
+      return productsObj; 
     },
     grand_total: function() {
       const amount = this.subtotal - this.discount;
@@ -134,9 +136,9 @@ export default {
       this.discount = 0;
       for (var key in this.products) {
         let entry = this.products[key]
-        this.subtotal += entry.price * entry.qty;
-        this.totalpoints += entry.points * entry.qty;
-        this.subtotal = this.subtotal.toFixed(2)
+        this.subtotal = parseInt(this.subtotal) + parseInt(entry.price * entry.qty);
+        this.totalpoints = parseInt(this.totalpoints) + parseInt(entry.points * entry.qty);
+        this.subtotal = parseInt(this.subtotal).toFixed(2)
       }
       // checking for discounts
       if (this.discountcode !='') {
@@ -160,7 +162,7 @@ export default {
           this.discount = 20
         }
       }
-    this.viewTotalClicked = true;
+      this.viewTotalClicked = true;
     },
     checkViewed: function() {
       if (!(this.viewTotalClicked)) {
@@ -172,7 +174,11 @@ export default {
     },
     pushBrowse() {
       this.$router.push({path: '/user/products'})
-    }
+    },
+    route: function(event) {
+			let pdt_id = event.target.getAttribute("id");
+			this.$router.push({ name: "ipp", params: { id: pdt_id } });
+		}
   },
   created() {
     this.retrieveCart().then((productsObj) => {this.products = productsObj})
@@ -292,7 +298,7 @@ li {
   width: 80px;
   height: 80px;
 }
-#item_span {
+.item_span {
   flex-basis: 200px;
   text-align: left;
 }
@@ -326,12 +332,15 @@ li {
 }
 /* the following are for an empty cart */
 #empty-text {
-  align-content: center;
-  font-family: "Garamond";
-  font-size: 25px;
-  font-weight: bold;
-  color: #000000;
-  text-align: center;
+  margin: auto;
+  margin-top: 250px;
+  margin-bottom: 70px;
+  padding: 30px;
+  width: 30%;
+  border-radius: 20px;
+  background: rgb(237, 246, 249);
+  font-size: 20px;
+  font-weight:bold;
 }
 #browseBtn {
   font-family: "Garamond";
@@ -340,6 +349,10 @@ li {
   background: #006d77;
   text-decoration: none;
   border-radius: 5px;
-  padding: 8px;
+  padding: 15px;
+  margin-bottom: 70px;
+}
+#empty {
+  padding-bottom: 150px;
 }
 </style>

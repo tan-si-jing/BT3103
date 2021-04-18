@@ -52,7 +52,7 @@
 <script>
 import LikedProducts from './LikedProducts.vue'
 import UserSearchBar from './UserSearchBar.vue'
-import {fb, database} from '../firebase';
+import {fb, database} from '../firebase.js';
 
 export default {
  data() {

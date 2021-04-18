@@ -14,16 +14,16 @@ import CartShipping from "./components/Cart/CartShipping.vue";
 import CartConfirm from './components/Cart/CartConfirm.vue';
 import ISP from "./components/IndividualShopPage.vue";
 import Shop from "./components/Shop.vue";
-import FootBar from "./components/ProfileDashboards/charts/FootBar.vue";
 import EcoPoints from "./components/ProfileDashboards/EcoPoints.vue";
-
 import CompanyHeader from "./components/Company/CompanyHeader.vue";
 import CompanyHome from "./components/Company/CompanyHome.vue";
+import CompanyLogin from "./components/Company/CompanyLogin.vue";
 import EditDescription from "./components/Company/EditDescription.vue";
 import EditProducts from "./components/Company/EditProducts.vue";
 import AddProducts from "./components/Company/AddProducts.vue";
+import CompanyEditProfile from "./components/Company/EditProfile.vue";
 
-import { fb } from "./firebase";
+import { fb, database } from "./firebase.js";
 
 Vue.use(Router);
 
@@ -46,10 +46,13 @@ const router = new Router({
       name: "shop",
       props: true,
     },
-  
+    {
+      path: "/companylogin",
+      component: CompanyLogin,
+    },
     {
       path: "/user",
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: true, isCompany:false },
       component: UserHeader,
       children: [
         {
@@ -105,10 +108,6 @@ const router = new Router({
           props: true
         },
         {
-          path: "footbar",
-          component: FootBar
-        },
-        {
           path: "ecopoints",
           component: EcoPoints
         },
@@ -116,33 +115,37 @@ const router = new Router({
     },
     {
       path: "/company",
-      //meta: { requiresAuth: true },
+      meta: { requiresAuth: true, isCompany: true },
       component: CompanyHeader,
       children: [
         {
           path: "home",
           component: CompanyHome,
-          name: "companyHome",
-          props: true,
         },
         {
-          path: "editDescription",
+          path: "editdescription",
           component: EditDescription,
-          name: "editDescription",
-          props: true,
         },
         {
-          path: "editProducts",
+          path: "editproducts",
           component: EditProducts,
           name: "editProducts",
           props: true,
         },
         {
-          path: "addProducts",
+          path: "addproducts",
           component: AddProducts,
-          name: "addProducts",
-          props: true,
         },
+        {
+          path: "editprofile",
+          component: CompanyEditProfile,
+        },
+        /*
+        {
+          path: "dashboard",
+          component: CompanyDashboard,
+        },
+        */
       ],
     },
   ],
@@ -150,15 +153,33 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some((x) => x.meta.requiresAuth);
+  const isCompany = to.matched.some((x) => x.meta.isCompany);
   const currentUser = fb.auth().currentUser;
 
   if (requiresAuth && !currentUser) {
     next("/");
+  } else if (isCompany && requiresAuth && currentUser) {
+    database.collection("companies").doc(currentUser.uid).get()
+      .then((docSnapshot) => {
+        if (docSnapshot.exists) {
+          next();
+        } else {
+          next("/")
+        }
+      })
   } else if (requiresAuth && currentUser) {
-    next();
+    database.collection("companies").doc(currentUser.uid).get()
+      .then((docSnapshot) => {
+        if (docSnapshot.exists) {
+          next("/company/home");
+        } else {
+          next()
+        }
+      })
   } else {
     next();
   }
 });
+
 
 export default router;

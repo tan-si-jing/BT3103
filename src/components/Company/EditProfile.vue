@@ -3,16 +3,11 @@
   <div class="editProfile" style="margin: 100px;">    
     <div class="intro h-100">
       <div class="h-100 align-items-center">
-        <h3 style="margin: 40px;">Profile settings</h3>
+        <h3 style="margin: 40px;">Account settings</h3>
       </div>
     </div>
     <div class="profile-content">
       <div class="container">
-          <div class="col-sm">
-            <div class="form-group">
-              <input type="text"  v-model="name" :placeholder="this.account.name" class="form-control">
-            </div>
-          </div>
 
           <div class="col-sm">
             <div class="form-group">
@@ -25,6 +20,7 @@
               <input type="submit" v-on:click="updateProfile" value="Save Changes" class="btn btn-primary">
             </div>
           </div>
+          <br>
 
           <div class="col-sm">
             <div class="form-group">
@@ -52,17 +48,15 @@
 </template>
 
 <script>
-import {fb, database} from '../firebase';
-import Footer from './Footer.vue';
+import {fb, database} from '../../firebase';
+import Footer from '../Footer.vue';
 
 export default {
   data(){
     return {
       account: {
-        name: null,
         email: null
       },
-      name:null,
       email:null,
       password:null,
       confirmPassword:null,       
@@ -74,9 +68,6 @@ export default {
   methods: {
       fetchProfile() {
         var user = fb.auth().currentUser;
-        database.collection("users").doc(user.uid).get().then((doc) => {
-            this.account.name = doc.data().name
-          })
         this.account.email = user.email
       },
       updateProfile(){
@@ -93,12 +84,6 @@ export default {
             .catch((error) => {
                 alert("Error updating document: " +  error);
             });
-        }
-
-        if (this.name !== null) {
-          database.collection("users").doc(user.uid).update({
-            name:this.name
-          })
         }
         
         location.reload()

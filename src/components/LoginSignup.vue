@@ -33,7 +33,8 @@
                                 <b-form-input type="password" v-model="password" class="form-control" id="inputPassword" placeholder="Password"></b-form-input>
                             </b-input-group>
                         </div>
-                        <br>
+                        <a href="/companylogin">Click here to log in with business account</a>
+                        <br><br>
                         <div class="form-group" style="text-align:center;">
                             <button class="btn btn-primary" v-on:click="login">Let's go!</button>
                         </div>
