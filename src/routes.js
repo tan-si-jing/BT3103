@@ -21,6 +21,7 @@ import CompanyLogin from "./components/Company/CompanyLogin.vue";
 import EditDescription from "./components/Company/EditDescription.vue";
 import EditProducts from "./components/Company/EditProducts.vue";
 import AddProducts from "./components/Company/AddProducts.vue";
+import CompanyEditProfile from "./components/Company/EditProfile.vue";
 
 import { fb, database } from "./firebase.js";
 
@@ -122,19 +123,29 @@ const router = new Router({
           component: CompanyHome,
         },
         {
-          path: "editDescription",
+          path: "editdescription",
           component: EditDescription,
         },
         {
-          path: "editProducts",
+          path: "editproducts",
           component: EditProducts,
           name: "editProducts",
           props: true,
         },
         {
-          path: "addProducts",
+          path: "addproducts",
           component: AddProducts,
         },
+        {
+          path: "editprofile",
+          component: CompanyEditProfile,
+        },
+        /*
+        {
+          path: "dashboard",
+          component: CompanyDashboard,
+        },
+        */
       ],
     },
   ],
