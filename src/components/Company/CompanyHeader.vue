@@ -1,6 +1,6 @@
 <template>
 <div>
-  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #B0E0E6;">
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #B0E0E6; padding: 20px 15px;">
     <a class="navbar-brand" href="/company/home">
       <img src="../../../public/YGS-logo.svg" width="30" height="30" class="d-inline-block align-top" style="margin: 0px 10px;" >
       Your Green Stop
