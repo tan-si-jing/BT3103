@@ -45,9 +45,9 @@ export default {
         .get()
         .then(snapshot => {
           this.usrArr.push(
-            [snapshot.data().name,
+            snapshot.data().name,
             snapshot.data().points,
-            this.user_id]
+            this.user_id
           );
         });
       console.log(this.usrArr);
