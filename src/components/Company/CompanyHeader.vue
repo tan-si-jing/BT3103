@@ -16,7 +16,7 @@
             {{this.name}}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/company/dashboard" style="padding: 0.5rem 1.5rem;"><b-icon style="margin-right: 15px;" icon="clipboard-data"></b-icon>Dashboard</a>
+            <a class="dropdown-item" href="/company/dashboards" style="padding: 0.5rem 1.5rem;"><b-icon style="margin-right: 15px;" icon="clipboard-data"></b-icon>Dashboard</a>
             <a class="dropdown-item" href="/company/editprofile" style="padding: 0.5rem 1.5rem;"><b-icon style="margin-right: 15px;" icon="gear"></b-icon>Account Settings</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" v-on:click="logout" style="cursor: pointer;padding: 0.5rem 1.5rem;"><b-icon style="margin-right: 15px;" icon="power"></b-icon>Logout</a>

@@ -125,7 +125,6 @@ export default({
 	font-weight: bold;
 	border-radius: 24px;
 }
-
 a:link {
 	color:green;
 	text-decoration: none;
