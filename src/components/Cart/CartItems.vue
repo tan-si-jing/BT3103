@@ -28,19 +28,18 @@
           <li v-for="item in products" v-bind:key="item.id">
             <ul id="itemrow">
               <li id="itemname">
-                <span id="item_span"><img id="item_img" :src="item.img" /></span
-                ><br />
-                <span id="item_span"
-                  ><b>{{ item.name }}</b
-                  ><br />
-                  <a id="co2footprint"></a
-                  ><span> {{ item.footprint }}g</span></span
-                ><br />
-                <span id="item_span"><CartRemoveBtn v-bind:pdt_id="item.id">Remove</CartRemoveBtn></span>
+                <span class="item_span" style="flex-basis: 100px;"><img id="item_img" :src="item.img" /></span>
+                <span class="item_span" style="flex-basis: 200px;">
+                <b v-on:click="route($event)" :id="item.id" style="cursor: pointer;">{{ item.name }}</b>
+                <br />
+                <a id="co2footprint"></a>
+                <span> {{ item.footprint }}g</span></span>
+                <br />
+                <span class="item_span"><CartRemoveBtn v-bind:pdt_id="item.id">Remove</CartRemoveBtn></span>
               </li>
               <li>${{ item.price }}</li>
               <li>{{ item.qty }}</li>
-              <li>${{ (item.price * item.qty).toFixed(2) }}</li>
+              <li>${{ item.price * item.qty }}</li>
               <li>{{ item.qty * item.points }}</li>
             </ul>
           </li>
@@ -58,11 +57,11 @@
       </div>
     </div>
     <!-- if this.products is an empty object-->
-    <div v-if="Object.keys(this.products).length == 0 && this.loading==false">
-        <p id="empty-text"> Your cart is empty.</p><br>
+    <div id="empty" v-if="Object.keys(this.products).length == 0 && this.loading==false">
+        <p id="empty-text"> Your cart is empty!</p><br>
 
       <!-- note: router-link to home page -->
-      <router-link id="browseBtn" to="/user/home" exact>Continue Browsing</router-link>
+      <router-link id="browseBtn" to="/user/products" exact>Continue Browsing</router-link>
     </div>
     </div>
     <Footer/>
@@ -182,7 +181,11 @@ export default {
     },
     pushBrowse() {
       this.$router.push({path: '/user/products'})
-    }
+    },
+    route: function(event) {
+			let pdt_id = event.target.getAttribute("id");
+			this.$router.push({ name: "ipp", params: { id: pdt_id } });
+		}
   },
   created() {
     this.retrieveCart().then((productsObj) => {this.products = productsObj})
@@ -195,7 +198,6 @@ export default {
   background-color: #d8e2dc;
   width: 100%;
 }
-
 .cart-icon {
   position: absolute;
   font-size: 40px;
@@ -211,7 +213,6 @@ export default {
   left: 25%;
   top: 20%;
 }
-
 hr {
   position: absolute;
   width: 47%;
@@ -220,7 +221,6 @@ hr {
   top: 22%;
   left: 28%;
 }
-
 .card-icon {
   position: absolute;
   font-size: 35px;
@@ -234,7 +234,6 @@ hr {
   left: 48%;
   top: 20%;
 }
-
 .tick-icon {
   position: absolute;
   font-size: 40px;
@@ -302,8 +301,8 @@ li {
   width: 80px;
   height: 80px;
 }
-#item_span {
-  flex-basis: 200px;
+.item_span {
+  flex-basis: 150px;
   text-align: left;
 }
 #view_total {
@@ -336,12 +335,15 @@ li {
 }
 /* the following are for an empty cart */
 #empty-text {
-  align-content: center;
-  font-family: "Garamond";
-  font-size: 25px;
-  font-weight: bold;
-  color: #000000;
-  text-align: center;
+  margin: auto;
+  margin-top: 250px;
+  margin-bottom: 70px;
+  padding: 30px;
+  width: 30%;
+  border-radius: 20px;
+  background: rgb(237, 246, 249);
+  font-size: 20px;
+  font-weight:bold;
 }
 #browseBtn {
   font-family: "Garamond";
@@ -350,6 +352,10 @@ li {
   background: #006d77;
   text-decoration: none;
   border-radius: 5px;
-  padding: 8px;
+  padding: 15px;
+  margin-bottom: 70px;
+}
+#empty {
+  padding-bottom: 150px;
 }
 </style>

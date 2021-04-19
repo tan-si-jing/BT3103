@@ -23,7 +23,7 @@
           </span>
         </span><br><br><br>
         <!-- note: router-link to home page -->
-        <router-link id="browseBtn" to="/user/home" exact>Continue Browsing</router-link>
+        <router-link id="browseBtn" to="/user/products" exact>Continue Browsing</router-link>
       </div>
     </div>
     <Footer/>
@@ -53,7 +53,6 @@ export default {
   background-color: #d8e2dc;
   width: 100%;
 }
-
 .cart-icon {
   position: absolute;
   font-size: 40px;
@@ -65,11 +64,9 @@ export default {
   line-height: 70px;
   vertical-align: middle;
   align-content: center;
-
   left: 25%;
   top: 20%;
 }
-
 hr {
   position: absolute;
   width: 47%;
@@ -78,7 +75,6 @@ hr {
   top: 22%;
   left: 28%;
 }
-
 .card-icon {
   position: absolute;
   font-size: 35px;
@@ -92,7 +88,6 @@ hr {
   left: 48%;
   top: 20%;
 }
-
 .tick-icon {
   position: absolute;
   font-size: 40px;
@@ -145,7 +140,7 @@ hr {
   border-color: #688a75;
   text-decoration: none;
   border-radius: 5px;
-  padding: 8px;
+  padding: 10px;
   margin: 20px;
 }
 </style>
