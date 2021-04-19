@@ -21,15 +21,15 @@ import CompanyLogin from "./components/Company/CompanyLogin.vue";
 import EditDescription from "./components/Company/EditDescription.vue";
 import EditProducts from "./components/Company/EditProducts.vue";
 import AddProducts from "./components/Company/AddProducts.vue";
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+// <<<<<<< Updated upstream
+// <<<<<<< Updated upstream
 import CompanyEditProfile from "./components/Company/EditProfile.vue";
-=======
+// =======
 import CompanyProfile from "./components/Company/CompanyProfile.vue";
->>>>>>> Stashed changes
-=======
-import CompanyProfile from "./components/Company/CompanyProfile.vue";
->>>>>>> Stashed changes
+// >>>>>>> Stashed changes
+// =======
+// import CompanyProfile from "./components/Company/CompanyProfile.vue";
+// >>>>>>> Stashed changes
 
 import { fb, database } from "./firebase.js";
 
@@ -145,8 +145,8 @@ const router = new Router({
           component: AddProducts,
         },
         {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+          // <<<<<<< Updated upstream
+          // <<<<<<< Updated upstream
           path: "editprofile",
           component: CompanyEditProfile,
         },
@@ -156,16 +156,17 @@ const router = new Router({
           component: CompanyDashboard,
         },
         */
-=======
+        // =======
+        {
           path: "dashboards",
           component: CompanyProfile,
         },
->>>>>>> Stashed changes
-=======
-          path: "dashboards",
-          component: CompanyProfile,
-        },
->>>>>>> Stashed changes
+        // >>>>>>> Stashed changes
+        // =======
+        //           path: "dashboards",
+        //           component: CompanyProfile,
+        //         },
+        // >>>>>>> Stashed changes
       ],
     },
   ],
@@ -207,12 +208,12 @@ router.beforeEach((to, from, next) => {
   }
 });
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+// <<<<<<< Updated upstream
+// <<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
+// =======
+// >>>>>>> Stashed changes
 export default router;
-=======
-export default router;
->>>>>>> Stashed changes
+// =======
+// export default router;
+// >>>>>>> Stashed changes

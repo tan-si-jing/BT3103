@@ -43,15 +43,15 @@ export default {
     SalesAnalysis
   },
   methods: {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    fetchUserData: function() {
-      let id = fb.auth().currentUser.uid;
-      database
-        .collection("users")
-=======
-=======
->>>>>>> Stashed changes
+    // <<<<<<< Updated upstream
+    // <<<<<<< Updated upstream
+    //     fetchUserData: function() {
+    //       let id = fb.auth().currentUser.uid;
+    //       database
+    //         .collection("users")
+    // =======
+    // =======
+    // >>>>>>> Stashed changes
     // fetchUserData() {
     //   let id = fb.auth().currentUser.uid;
     //   database
@@ -66,26 +66,26 @@ export default {
       let id = await fb.auth().currentUser.uid;
       await database
         .collection("companies")
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+        // <<<<<<< Updated upstream
+        // >>>>>>> Stashed changes
+        // =======
+        // >>>>>>> Stashed changes
         .doc(id)
         .get()
         .then(doc => {
           this.name = doc.data().name;
         });
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    },
-    fetchProducts: function() {
-      database
-=======
+      // <<<<<<< Updated upstream
+      // <<<<<<< Updated upstream
+      // },
+      // fetchProducts: async function() {
+      //       database
+      // =======
       await database
->>>>>>> Stashed changes
-=======
-      await database
->>>>>>> Stashed changes
+        // >>>>>>> Stashed changes
+        // =======
+        //       await database
+        // >>>>>>> Stashed changes
         .collection("products")
         .where("company_name", "==", this.name)
         .get()
@@ -94,20 +94,20 @@ export default {
             this.products.push([doc.id, doc.data()]);
           });
         });
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+      // <<<<<<< Updated upstream
+      // <<<<<<< Updated upstream
     },
     // redeemPoints: function() {
     //   this.display = "EcoPoints";
     // },
-=======
-      console.log(this.products);
-    },
->>>>>>> Stashed changes
-=======
-      console.log(this.products);
-    },
->>>>>>> Stashed changes
+    // =======
+    //       console.log(this.products);
+    //     },
+    // >>>>>>> Stashed changes
+    // =======
+    //       console.log(this.products);
+    //     },
+    // >>>>>>> Stashed changes
     showDash: function() {
       this.display = "SalesDash";
     },
@@ -118,20 +118,20 @@ export default {
     //   this.display = "Leaderboard";
     // }
   },
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-  created() {
-    this.fetchUserData();
-=======
+  // <<<<<<< Updated upstream
+  // <<<<<<< Updated upstream
+  //   created() {
+  //     this.fetchUserData();
+  // =======
   async created() {
     //await this.fetchUserData();
     this.fetchProducts();
->>>>>>> Stashed changes
-=======
-  async created() {
-    //await this.fetchUserData();
-    this.fetchProducts();
->>>>>>> Stashed changes
+    // >>>>>>> Stashed changes
+    // =======
+    //   async created() {
+    //     //await this.fetchUserData();
+    //     this.fetchProducts();
+    // >>>>>>> Stashed changes
   },
   beforeDestroy() {
     this.display = "";

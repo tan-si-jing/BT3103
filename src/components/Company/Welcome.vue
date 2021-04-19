@@ -3,14 +3,11 @@
     <div id="greeting">Welcome back, {{ name }}!</div>
     <br />
     <div id="thanks">Joined since April 2021</div>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
+
     <br />
->>>>>>> Stashed changes
-=======
+
     <br />
->>>>>>> Stashed changes
+
     <div id="thanks">
       Thank you for being part of our community to preserve our mother earth.
       We reallly appreciate your effort in doing yout part to producing sustainable and environmentally friendly products for our customers to enjoy!
@@ -20,15 +17,15 @@
 </template>
 
 <script>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-import { fb, database } from "../firebase.js";
-=======
+// <<<<<<< Updated upstream
+// <<<<<<< Updated upstream
+// import { fb, database } from "../firebase.js";
+// =======
+// import { fb, database } from "../../firebase.js";
+// >>>>>>> Stashed changes
+// =======
 import { fb, database } from "../../firebase.js";
->>>>>>> Stashed changes
-=======
-import { fb, database } from "../../firebase.js";
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
 export default {
   data() {
     return {
@@ -37,34 +34,34 @@ export default {
     };
   },
   methods: {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    fetchUserData: function() {
-      let id = fb.auth().currentUser.uid;
-      database
-        .collection("users")
-=======
-=======
->>>>>>> Stashed changes
+    // <<<<<<< Updated upstream
+    // <<<<<<< Updated upstream
+    //     fetchUserData: function() {
+    //       let id = fb.auth().currentUser.uid;
+    //       database
+    //         .collection("users")
+    // =======
+    // =======
+    // >>>>>>> Stashed changes
     fetchUserData() {
       let id = fb.auth().currentUser.uid;
       database
         .collection("companies")
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+        // <<<<<<< Updated upstream
+        // >>>>>>> Stashed changes
+        // =======
+        // >>>>>>> Stashed changes
         .doc(id)
         .get()
         .then(doc => {
           this.name = doc.data().name;
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-          //this.points = doc.data().points;
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+          // <<<<<<< Updated upstream
+          // <<<<<<< Updated upstream
+          //           //this.points = doc.data().points;
+          // =======
+          // >>>>>>> Stashed changes
+          // =======
+          // >>>>>>> Stashed changes
         });
     }
   },
@@ -79,15 +76,8 @@ export default {
   background: #81af93;
   border-radius: 25px;
   font-family: "EB Garamond";
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-  padding: 30px;
-=======
+
   padding: 10px;
->>>>>>> Stashed changes
-=======
-  padding: 10px;
->>>>>>> Stashed changes
 }
 #hello {
   color: black;
