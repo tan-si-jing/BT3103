@@ -1,18 +1,29 @@
 <template>
   <div id="hist">
-    <div id="heading">Your Products:</div>
+    <div id="heading">Your Products</div>
+    <div id="purchases">Total items listed: {{ this.products.length }}</div>
     <ul id="itemsList">
       <li id="item" v-for="i in products" :key="i[0]">
         <img id="img1" v-bind:src="i[1].img_url" />
         <br />
-        {{i[1].name}}
+        {{ i[1].name }}, ${{ i[1].price }}
       </li>
     </ul>
-    <div id="heading">Purchases:</div>
-    <div
-      v-for="(value,name) in this.purchasedProducts"
-      :key="name"
-    >{{name}}: Purchased {{value}} times</div>
+
+    <div v-if="this.objectLoaded == true">
+      <div id="heading">Purchases</div>
+      <p
+        id="purchases"
+        v-for="(value, name) in this.purchasedProducts"
+        :key="name"
+      >
+        {{ name }}: Purchased {{ value }} times
+      </p>
+    </div>
+    <br />
+    <div id="heading">Total Sales</div>
+    <p id="purchases">${{ this.totalSales.toFixed(2) }}</p>
+    <p></p>
   </div>
 </template>
 
@@ -23,7 +34,9 @@ export default {
   data() {
     return {
       products: [],
-      purchasedProducts: {}
+      purchasedProducts: {},
+      objectLoaded: false,
+      totalSales: 0,
     };
   },
   methods: {
@@ -33,40 +46,62 @@ export default {
         .collection("companies")
         .doc(id)
         .get()
-        .then(doc => {
+        .then((doc) => {
           this.name = doc.data().name;
         });
       await database
         .collection("products")
         .where("company_name", "==", this.name)
         .get()
-        .then(snapshot => {
-          snapshot.docs.forEach(doc => {
+        .then((snapshot) => {
+          snapshot.docs.forEach((doc) => {
             this.products.push([doc.id, doc.data()]);
           });
         });
     },
     fetchPurchased: async function() {
       for (let i = 0; i < this.products.length; i++) {
-        this.purchasedProducts[this.products[i][1].name] = 0;
+        // this.porducts[i][1]["count"] = await 0;
+        this.purchasedProducts[this.products[i][1].name] = await 0;
       }
       //var allPurchases =[];
       await database
         .collection("purchased")
         .get()
-        .then(snapshot => {
-          snapshot.forEach(doc => {
+        .then((snapshot) => {
+          snapshot.forEach((doc) => {
+            // for (let i = 0; i < this.products.length; i++) {
+            //   if (doc.data().name == this.products[i][1].name) {
+            //     this.products[i][1]["count"]++;
+            //   }
+            // }
             if (doc.data().name in this.purchasedProducts) {
               this.purchasedProducts[doc.data().name]++;
             }
           });
         });
-    }
+      this.objectLoaded = await true;
+    },
+    fetchTotal: async function() {
+      for (const [key, value] of Object.entries(this.purchasedProducts)) {
+        for (let i = 0; i < this.products.length; i++) {
+          if (key == this.products[i][1].name) {
+            this.totalSales +=
+              (await value) * parseFloat(this.products[i][1].price);
+          }
+        }
+      }
+      //this.totalSales.toFixed(2);
+    },
   },
   async created() {
     await this.fetchProducts();
     await this.fetchPurchased();
-  }
+    await this.fetchTotal();
+  },
+  //   mounted() {
+  //     this.fetchPurchased();
+  //   },
 };
 </script>
 
@@ -99,6 +134,7 @@ export default {
 #heading {
   font-family: "EB Garamond";
   font-size: 25px;
+  font-weight: bold;
 }
 
 .card {
@@ -106,5 +142,10 @@ export default {
   margin: 30px;
   background: #c1d9ca;
   border-radius: 15px;
+}
+
+#purchases {
+  font-family: "EB Garamond";
+  font-size: 23px;
 }
 </style>
