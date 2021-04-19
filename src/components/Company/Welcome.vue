@@ -6,8 +6,6 @@
 
     <br />
 
-    <br />
-
     <div id="thanks">
       Thank you for being part of our community to preserve our mother earth.
       We reallly appreciate your effort in doing yout part to producing sustainable and environmentally friendly products for our customers to enjoy!
