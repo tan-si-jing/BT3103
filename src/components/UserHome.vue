@@ -1,5 +1,13 @@
 <template>
 	<div class="homepage">
+		<div class="introduction">
+			<h2> About us </h2>
+			<p class="intro-content">We are a group of NUS students who are passionate about doing our part towards reducing an individual’s carbon footprint which is a major component affecting climate change, as Singapore represents about 0.11 per cent of global emissions. We would like to achieve that through providing a platform for environmentally friendly business to promote their eco-friendly products and at the same time, raising awareness on the importance to conserving out environement.
+			We have also created a dashboard with regards to the air pollutant level in Singapore as shown in the link below! <br/>
+			<a class= "link" href = "https://bt3103-project-environment.herokuapp.com/" target="_blank"> {{this.dashboard}} </a> 
+			</p>
+			<p>Happy Shopping!</p>
+		</div>
 		<div class="newspaper-content">
 			<div class="section-title"> Browse Articles </div>
 			<div id="articlesNav" class="carousel slide" data-ride="carousel">
@@ -49,6 +57,7 @@ export default({
 			shopsList:[],
 			newsfeed:[],
 			index: 0,
+			dashboard: "https://bt3103-project-environment.herokuapp.com/"
 		}
 	},
 
@@ -92,6 +101,24 @@ export default({
 
 
 <style scoped>
+.introduction{
+	background-color: rgba(65, 119, 110, 0.329);
+	margin: 20px 20px 5px 20px;
+	text-align: center;
+	padding: 20px 50px 20px 50px;
+	font-family: 'EB Garamond';
+	font-weight: bold;
+	border-radius: 24px;
+}
+
+a:link {
+	color:green;
+	text-decoration: none;
+}
+
+a:hover{
+	color:rgb(57, 66, 54)
+}
 .newspaper-feed {
 	width: 60%;
 	height: 480px;
