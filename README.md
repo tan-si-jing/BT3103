@@ -1,5 +1,7 @@
 # BT3103
 
+Deployment link: https://bt3103-project-f89ba.web.app/
+
 # Environment
 - A website for environmental-friendly products (e-commerce)
 - Platform for environmentally friendly companies to sell their products 
