@@ -14,6 +14,7 @@ import CartShipping from "./components/Cart/CartShipping.vue";
 import CartConfirm from "./components/Cart/CartConfirm.vue";
 import ISP from "./components/IndividualShopPage.vue";
 import Shop from "./components/Shop.vue";
+import Product from "./components/ProductPage.vue";
 import EcoPoints from "./components/ProfileDashboards/EcoPoints.vue";
 import CompanyHeader from "./components/Company/CompanyHeader.vue";
 import CompanyHome from "./components/Company/CompanyHome.vue";
@@ -22,8 +23,7 @@ import EditDescription from "./components/Company/EditDescription.vue";
 import EditProducts from "./components/Company/EditProducts.vue";
 import AddProducts from "./components/Company/AddProducts.vue";
 import CompanyEditProfile from "./components/Company/EditProfile.vue";
-import CompanyProfile from "./components/Company/CompanyProfile.vue";
-
+import CompanyDashboard from "./components/Company/CompanyProfile.vue";
 
 import { fb, database } from "./firebase.js";
 
@@ -51,6 +51,12 @@ const router = new Router({
     {
       path: "/companylogin",
       component: CompanyLogin,
+    },
+    {
+      path: "/product/:id",
+      component: Product,
+      name: "product",
+      props: true,
     },
     {
       path: "/user",
@@ -144,7 +150,7 @@ const router = new Router({
         },
         {
           path: "dashboards",
-          component: CompanyProfile,
+          component: CompanyDashboard,
         },
       ],
     },
@@ -177,7 +183,7 @@ router.beforeEach((to, from, next) => {
       .get()
       .then((docSnapshot) => {
         if (docSnapshot.exists) {
-          next("/company/home");
+          next("/company/home").then(() => {location.reload()});
         } else {
           next();
         }
@@ -187,5 +193,12 @@ router.beforeEach((to, from, next) => {
   }
 });
 
+// <<<<<<< Updated upstream
+// <<<<<<< Updated upstream
 
+// =======
+// >>>>>>> Stashed changes
 export default router;
+// =======
+// export default router;
+// >>>>>>> Stashed changes
