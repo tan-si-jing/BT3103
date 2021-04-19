@@ -23,7 +23,7 @@
                     <div id="pdtCell" style="display: grid; margin: 2px 10px; align-content: start; text-align: left;">
                         <h5 class="pdtName">{{item.name}}</h5>
                         <span style="justify-self: self-start;">
-                            <img src="../../public/footprints.svg" width="25" height="20"> {{item.footprint}}g
+                            <span id="co2footprint"></span> {{item.footprint}}g
                         </span>
                     </div>
                     <div style="flex: auto; text-align: right; margin: 2px 0px;">
@@ -120,5 +120,9 @@ li {
     font-size: 17px; 
     padding:0px; 
     cursor: pointer;
+}
+#co2footprint {
+    content: url('https://api.iconify.design/iwwa:co2.svg?height=30');
+    vertical-align: -0.65em;
 }
 </style>
