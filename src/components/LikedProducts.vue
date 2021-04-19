@@ -74,7 +74,7 @@ export default {
     },
     route: function(event) {
         let pdt_id = event.target.getAttribute("id");
-		this.$router.push({ name: "ipp", params: { id: pdt_id } }).then(() => {location.reload()});;
+		this.$router.push({ name: "ipp", params: { id: pdt_id } }).then(() => {location.reload()});
 	}
   }
 };

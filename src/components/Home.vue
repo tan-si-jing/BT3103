@@ -118,12 +118,11 @@ export default({
 <style scoped>
 .introduction{
 	background-color: rgba(65, 119, 110, 0.329);
-	margin: 20px 20px 5px 20px;
+	margin: 0px 0px 5px 0px;
 	text-align: center;
-	padding: 20px 50px 20px 50px;
+	padding: 20px 250px 20px 250px;
 	font-family: 'EB Garamond';
 	font-weight: bold;
-	border-radius: 24px;
 }
 
 a:link {
