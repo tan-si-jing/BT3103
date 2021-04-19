@@ -51,7 +51,7 @@ export default {
           );
         });
     },
-
+    
    getCurrentStanding: function(){
      var user;
      for(user in this.users){

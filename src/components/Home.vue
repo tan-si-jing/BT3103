@@ -124,7 +124,6 @@ export default({
 	font-family: 'EB Garamond';
 	font-weight: bold;
 }
-
 a:link {
 	color:green;
 	text-decoration: none;
