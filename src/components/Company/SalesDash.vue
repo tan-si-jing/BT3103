@@ -14,10 +14,10 @@
       <div id="heading">Purchases</div>
       <p
         id="purchases"
-        v-for="(value, name) in this.purchasedProducts"
-        :key="name"
+        v-for="(value,key) in this.sortedPurchasedProducts"
+        :key="key"
       >
-        {{ name }}: {{ value }} sold
+        {{ value[0] }}: Purchased {{ value[1] }} times
       </p>
     </div>
     <br />
@@ -35,6 +35,7 @@ export default {
     return {
       products: [],
       purchasedProducts: {},
+      sortedPurchasedProducts: {},
       objectLoaded: false,
       totalSales: 0,
     };
@@ -74,6 +75,8 @@ export default {
           });
         });
       this.objectLoaded = await true;
+      this.sortedPurchasedProducts = Object.entries(this.purchasedProducts).sort(([,a],[,b]) => b-a);
+
     },
     fetchTotal: async function() {
       for (const [key, value] of Object.entries(this.purchasedProducts)) {
@@ -91,6 +94,7 @@ export default {
     await this.fetchPurchased();
     await this.fetchTotal();
   },
+
 };
 </script>
 
@@ -138,3 +142,4 @@ export default {
   font-size: 23px;
 }
 </style>
+
