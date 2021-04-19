@@ -105,10 +105,17 @@ export default {
               this.products.push([doc.id, doc.data()]);
             } else {
               let pdtName = doc.data().name;
-              if (pdtName.toLowerCase().includes(keyword.toLowerCase())) {
+              var listOfWords = keyword.split(" ")
+              for (let i = 0; i < listOfWords.length; i++) {
+                var word = listOfWords[i];
+                if (pdtName.toLowerCase().includes(word.toLowerCase())) {
+                  this.show = true;
+                } else {
+                  this.show = false;
+                }
+              }
+              if (this.show == true) {
                 this.products.push([doc.id, doc.data()]);
-              } else {
-                this.show = false; //product is not what user wants
               }
             }
           });
