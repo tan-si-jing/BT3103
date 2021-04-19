@@ -118,7 +118,7 @@ export default({
 <style scoped>
 .introduction{
 	background-color: rgba(65, 119, 110, 0.329);
-	margin: 20px 250px 5px 250px;
+	margin: 20px 20px 5px 20px;
 	text-align: center;
 	padding: 20px 50px 20px 50px;
 	font-family: 'EB Garamond';
