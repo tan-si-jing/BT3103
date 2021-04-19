@@ -206,7 +206,6 @@ h2 {
 	color: rgba(0, 86, 94, 1);
 	padding:10px;
 	cursor: pointer;
-	//font-weight: bold;
 	text-decoration: underline;
 }
 </style>
