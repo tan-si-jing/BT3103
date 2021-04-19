@@ -2,7 +2,7 @@
   <div id="lead">
     <button v-on:click="getCurrentStanding()">Get Your Current Position</button>
     <ol>
-      <li v-for="j in users" :key="j[0]">{{j[0]}}: {{j[1]}} Points</li>
+      <li v-for="j in users" :key="j[0]">{{j[0]}} : {{j[1]}} Points</li>
     </ol>
     <br />
     <br />
@@ -50,14 +50,17 @@ export default {
             this.user_id
           );
         });
-      console.log(this.usrArr);
     },
-    getCurrentStanding: async function() {
-      var allUsers = await this.users;
-      var thisUser = await this.usrArr;
-      this.position = allUsers.indexOf(thisUser, 0);
-      alert("Your current rank is: " + this.position);
-    }
+
+   getCurrentStanding: function(){
+     var user;
+     for(user in this.users){
+       if(this.users[user][2] == this.user_id){
+         this.position = parseInt(user) + 1
+         alert("Your current rank is: " + this.position);
+       }
+     }
+   }
   },
   async created() {
     await this.fetchUserData();
