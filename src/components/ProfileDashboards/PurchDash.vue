@@ -1,7 +1,10 @@
 <template>
   <div id="hist">
-    <h5>This section contains details regarding the carbon footprint of the items that you have purchased.</h5>
-    <div id="empty" v-if="purchased.length==0">
+    <h5>
+      This section contains details regarding the carbon footprint of the items
+      that you have purchased.
+    </h5>
+    <div id="empty" v-if="purchased.length == 0">
       No items purchased yet :(
     </div>
     <div v-else style="display: flex; justify-content: space-evenly;">
@@ -10,24 +13,31 @@
         <img id="img1" :src="this.purchased[0].img_url" />
         <div id="pdtname">{{ this.purchased[0].name }}</div>
         <div>
-          <img src="../../../public/footprints.svg" width="25" height="20" />
+          <span id="co2footprint"></span>
           {{ this.purchased[0].footprint }} g
         </div>
       </div>
       <div class="card">
         <h5 style="font-weight:bold;">Product with highest footprint</h5>
-        <img id="img1" :src="this.purchased[this.purchased.length - 1].img_url" />
-        <div id="pdtname">{{ this.purchased[this.purchased.length - 1].name }}</div>
+        <img
+          id="img1"
+          :src="this.purchased[this.purchased.length - 1].img_url"
+        />
+        <div id="pdtname">
+          {{ this.purchased[this.purchased.length - 1].name }}
+        </div>
         <div>
-          <img src="../../../public/footprints.svg" width="25" height="20" />
+          <span id="co2footprint"></span>
           {{ this.purchased[this.purchased.length - 1].footprint }} g
         </div>
       </div>
     </div>
     <div id="chart">
-      <bar-chart v-if="loaded"
-      v-bind:chartData="chartData"
-      v-bind:options="options"></bar-chart> 
+      <bar-chart
+        v-if="loaded"
+        v-bind:chartData="chartData"
+        v-bind:options="options"
+      ></bar-chart>
     </div>
   </div>
 </template>
@@ -38,26 +48,26 @@ import BarChart from "./PurchDash.js";
 
 export default {
   components: {
-    BarChart
+    BarChart,
   },
   props: {
     chartData: {
       type: Object,
-      default: null
+      default: null,
     },
     options: {
       type: Object,
-      default: null
+      default: null,
     },
     loaded: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
       user_id: null,
-      purchased: []
+      purchased: [],
     };
   },
   methods: {
@@ -67,17 +77,17 @@ export default {
         .collection("purchased")
         .where("user_id", "==", this.user_id)
         .get()
-        .then(snapshot => {
-          snapshot.docs.forEach(doc => {
+        .then((snapshot) => {
+          snapshot.docs.forEach((doc) => {
             this.purchased.push(doc.data());
           });
         });
       this.purchased.sort((a, b) => (a.footprint > b.footprint ? 1 : -1));
-    }
+    },
   },
   created() {
     this.fetchPurchased();
-  }
+  },
 };
 </script>
 
@@ -107,7 +117,7 @@ ul {
 }
 
 h5 {
-  padding:10px;
+  padding: 10px;
 }
 
 #pdtname {
@@ -115,7 +125,7 @@ h5 {
 }
 
 #chart {
-  width:80%;
+  width: 80%;
   margin: auto;
 }
 
@@ -127,7 +137,12 @@ h5 {
   border-radius: 20px;
   background: rgb(237, 246, 249);
   font-size: 20px;
-  font-weight:bold;
+  font-weight: bold;
   margin-bottom: 50px;
+}
+
+#co2footprint {
+  content: url("https://api.iconify.design/iwwa:co2.svg?height=30");
+  vertical-align: -0.45em;
 }
 </style>
