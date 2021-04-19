@@ -1,9 +1,8 @@
 <template>
-  <div>
-    <div id="heading">
-      This section contains an overview of sales. We have calculated the sales
-      earned from each type of product.
-    </div>
+  <div style="margin-bottom: 50px;">
+    <h5>
+      This section contains an overview of sales categorised by product.
+    </h5>
     <div class="chart">
       <sales-chart></sales-chart>
     </div>
@@ -16,23 +15,13 @@ import SalesChart from "./SalesChart.js";
 export default {
   components: {
     SalesChart,
-  },
-  props: {
-    datacollection: {
-      type: Object,
-      default: null,
-    },
-    options: {
-      type: Object,
-      default: null,
-    },
-  },
+  }
 };
 </script>
 
 <style scoped>
-#heading {
-  font-family: "EB Garamond";
-  font-size: 25px;
+h5 {
+  padding:10px;
+  margin-bottom: 40px;
 }
 </style>

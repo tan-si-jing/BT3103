@@ -68,7 +68,6 @@
 
 <script>
 import { database } from '../../firebase';
-// import {fb, database} from '../firebase';
 import Footer from '../Footer.vue';
 
 export default {

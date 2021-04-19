@@ -1,29 +1,17 @@
 <template>
   <div id="welcome">
-    <div id="greeting">Welcome back, {{ name }}!</div>
+    <div id="greeting">{{ name }}</div>
     <br />
-    <div id="thanks">Joined since April 2021</div>
-
-    <br />
-
     <div id="thanks">
-      Thank you for being part of our community to preserve our mother earth.
-      We reallly appreciate your effort in doing yout part to producing sustainable and environmentally friendly products for our customers to enjoy!
+      Thank you for being part of our community to preserve our Mother Earth.
+      We really appreciate your effort in doing your part to produce sustainable and eco-friendly products for our customers to enjoy!
     </div>
     <br />
   </div>
 </template>
 
 <script>
-// <<<<<<< Updated upstream
-// <<<<<<< Updated upstream
-// import { fb, database } from "../firebase.js";
-// =======
-// import { fb, database } from "../../firebase.js";
-// >>>>>>> Stashed changes
-// =======
 import { fb, database } from "../../firebase.js";
-//>>>>>>> Stashed changes
 export default {
   data() {
     return {
@@ -32,34 +20,14 @@ export default {
     };
   },
   methods: {
-    // <<<<<<< Updated upstream
-    // <<<<<<< Updated upstream
-    //     fetchUserData: function() {
-    //       let id = fb.auth().currentUser.uid;
-    //       database
-    //         .collection("users")
-    // =======
-    // =======
-    // >>>>>>> Stashed changes
     fetchUserData() {
       let id = fb.auth().currentUser.uid;
       database
         .collection("companies")
-        // <<<<<<< Updated upstream
-        // >>>>>>> Stashed changes
-        // =======
-        // >>>>>>> Stashed changes
         .doc(id)
         .get()
         .then(doc => {
           this.name = doc.data().name;
-          // <<<<<<< Updated upstream
-          // <<<<<<< Updated upstream
-          //           //this.points = doc.data().points;
-          // =======
-          // >>>>>>> Stashed changes
-          // =======
-          // >>>>>>> Stashed changes
         });
     }
   },
@@ -74,13 +42,9 @@ export default {
   background: #81af93;
   border-radius: 25px;
   font-family: "EB Garamond";
-
-  padding: 10px;
-}
-#hello {
-  color: black;
-  font-weight: bold;
-  font-size: 24px;
+  padding: 40px;
+  margin: auto;
+  margin-top: 70px;
 }
 #greeting {
   color: #00565e;
@@ -88,15 +52,7 @@ export default {
   font-size: 30px;
 }
 #thanks {
-  color: #00565e;
-  font-size: 20px;
-}
-#points {
   color: black;
-  font-weight: bold;
-  font-size: 30px;
-}
-#icon {
-  max-width: 30px;
+  font-size: 25px;
 }
 </style>

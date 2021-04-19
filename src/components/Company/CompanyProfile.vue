@@ -1,8 +1,7 @@
 <template>
   <div>
     <div id="top-container">
-      <Welcome style="grid-column: 2;  grid-row-start: 1;justify-self:center;"></Welcome>
-      <!--<button v-on:click="redeemPoints()" id="redeem">Redeem Eco-Points</button>-->
+      <Welcome/>
     </div>
     <nav id="profnav">
       <button v-on:click="showDash()" class="nav-btn">Sales Dashboard</button>
@@ -43,49 +42,16 @@ export default {
     SalesAnalysis
   },
   methods: {
-    // <<<<<<< Updated upstream
-    // <<<<<<< Updated upstream
-    //     fetchUserData: function() {
-    //       let id = fb.auth().currentUser.uid;
-    //       database
-    //         .collection("users")
-    // =======
-    // =======
-    // >>>>>>> Stashed changes
-    // fetchUserData() {
-    //   let id = fb.auth().currentUser.uid;
-    //   database
-    //     .collection("companies")
-    //     .doc(id)
-    //     .get()
-    //     .then(doc => {
-    //       this.name = doc.data().name;
-    //     });
-    // },
     fetchProducts: async function() {
       let id = await fb.auth().currentUser.uid;
       await database
         .collection("companies")
-        // <<<<<<< Updated upstream
-        // >>>>>>> Stashed changes
-        // =======
-        // >>>>>>> Stashed changes
         .doc(id)
         .get()
         .then(doc => {
           this.name = doc.data().name;
         });
-      // <<<<<<< Updated upstream
-      // <<<<<<< Updated upstream
-      // },
-      // fetchProducts: async function() {
-      //       database
-      // =======
       await database
-        // >>>>>>> Stashed changes
-        // =======
-        //       await database
-        // >>>>>>> Stashed changes
         .collection("products")
         .where("company_name", "==", this.name)
         .get()
@@ -94,44 +60,16 @@ export default {
             this.products.push([doc.id, doc.data()]);
           });
         });
-      // <<<<<<< Updated upstream
-      // <<<<<<< Updated upstream
     },
-    // redeemPoints: function() {
-    //   this.display = "EcoPoints";
-    // },
-    // =======
-    //       console.log(this.products);
-    //     },
-    // >>>>>>> Stashed changes
-    // =======
-    //       console.log(this.products);
-    //     },
-    // >>>>>>> Stashed changes
     showDash: function() {
       this.display = "SalesDash";
     },
     showAnalysis: function() {
       this.display = "SalesAnalysis";
     }
-    // showLead: function() {
-    //   this.display = "Leaderboard";
-    // }
   },
-  // <<<<<<< Updated upstream
-  // <<<<<<< Updated upstream
-  //   created() {
-  //     this.fetchUserData();
-  // =======
   async created() {
-    //await this.fetchUserData();
     this.fetchProducts();
-    // >>>>>>> Stashed changes
-    // =======
-    //   async created() {
-    //     //await this.fetchUserData();
-    //     this.fetchProducts();
-    // >>>>>>> Stashed changes
   },
   beforeDestroy() {
     this.display = "";
@@ -140,25 +78,12 @@ export default {
 </script>
 
 <style scoped>
-#top-container {
-  padding: 60px;
-  display: grid;
-  grid-template-columns: 30% auto 30%;
-  grid-template-rows: 275px auto 40px;
-  grid-auto-flow: column;
-  height: 70vh;
+#welcome {
+  width: 40%;
 }
 
-#redeem {
-  border-radius: 10px;
-  font-family: "EB Garamond";
-  font-size: 20px;
-  color: #d8e2dc;
-  background: #006d77;
-  grid-column-start: 2;
-  grid-row-start: 3;
-  justify-self: right;
-  width: 190px;
+#top-container {
+  height: 65vh;
 }
 
 #profnav {

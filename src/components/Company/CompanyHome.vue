@@ -21,9 +21,6 @@
           <li>
             <button id="editShop" v-on:click="routeEditDesc()">Edit Description</button>
           </li>
-          <li>
-            <button id="editShop" v-on:click="routeDash()">View Dashboards</button>
-          </li>
         </ul>
       </div>
 
@@ -41,7 +38,6 @@
             width="250px"
             height="250px"
             :src="product[1].img_url"
-            v-on:click="notLoggedIn"
             style="cursor: pointer;"
           />
           <br />
@@ -116,9 +112,6 @@ export default {
     },
     routeAddPdt: function() {
       this.$router.push("/company/addProducts");
-    },
-    routeDash: function() {
-      this.$router.push("/company/dashboards");
     }
   },
   created() {

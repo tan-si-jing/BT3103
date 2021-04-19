@@ -14,10 +14,10 @@
       <div id="heading">Purchases</div>
       <p
         id="purchases"
-        v-for="(value,key) in this.sortedPurchasedProducts"
-        :key="key"
+        v-for="(value, name) in this.purchasedProducts"
+        :key="name"
       >
-        {{ value[0] }}: Purchased {{ value[1] }} times
+        {{ name }}: {{ value }} sold
       </p>
     </div>
     <br />
@@ -35,7 +35,6 @@ export default {
     return {
       products: [],
       purchasedProducts: {},
-      sortedPurchasedProducts: {},
       objectLoaded: false,
       totalSales: 0,
     };
@@ -62,30 +61,19 @@ export default {
     },
     fetchPurchased: async function() {
       for (let i = 0; i < this.products.length; i++) {
-        // this.porducts[i][1]["count"] = await 0;
         this.purchasedProducts[this.products[i][1].name] = await 0;
       }
-      //var allPurchases =[];
       await database
         .collection("purchased")
         .get()
         .then((snapshot) => {
           snapshot.forEach((doc) => {
-            // for (let i = 0; i < this.products.length; i++) {
-            //   if (doc.data().name == this.products[i][1].name) {
-            //     this.products[i][1]["count"]++;
-            //   }
-            // }
             if (doc.data().name in this.purchasedProducts) {
               this.purchasedProducts[doc.data().name]++;
             }
           });
         });
       this.objectLoaded = await true;
-      this.sortedPurchasedProducts = Object.entries(this.purchasedProducts).sort(([,a],[,b]) => b-a);
-      console.log(this.sortedPurchasedProducts)
-      console.log(this.purchasedProducts)
-
     },
     fetchTotal: async function() {
       for (const [key, value] of Object.entries(this.purchasedProducts)) {
@@ -96,7 +84,6 @@ export default {
           }
         }
       }
-      //this.totalSales.toFixed(2);
     },
   },
   async created() {
@@ -104,9 +91,6 @@ export default {
     await this.fetchPurchased();
     await this.fetchTotal();
   },
-  //   mounted() {
-  //     this.fetchPurchased();
-  //   },
 };
 </script>
 

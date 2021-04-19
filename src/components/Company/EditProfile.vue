@@ -3,12 +3,11 @@
   <div class="editProfile" style="margin: 100px;">    
     <div class="intro h-100">
       <div class="h-100 align-items-center">
-        <h3 style="margin: 40px;">Account settings</h3>
+        <h3 style="margin: 40px;">Profile settings</h3>
       </div>
     </div>
     <div class="profile-content">
       <div class="container">
-
           <div class="col-sm">
             <div class="form-group">
               <input type="text"  v-model="email" :placeholder="this.account.email" class="form-control">
@@ -20,7 +19,6 @@
               <input type="submit" v-on:click="updateProfile" value="Save Changes" class="btn btn-primary">
             </div>
           </div>
-          <br>
 
           <div class="col-sm">
             <div class="form-group">
@@ -78,16 +76,18 @@ export default {
             .catch(function(error) {
               console.error(error);
             });
-          database.collection("users").doc(user.uid).update({
+          database.collection("companies").doc(user.uid).update({
               email: this.email
             })
+            .then(() => {
+              alert("Updated!")
+              location.reload()
+            })
             .catch((error) => {
-                alert("Error updating document: " +  error);
+              alert("Error updating document: " +  error);
             });
         }
         
-        location.reload()
-        alert("Updated!")
       },
       updatePassword(){
         var user = fb.auth().currentUser;

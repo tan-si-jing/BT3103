@@ -1,10 +1,8 @@
-import { Pie, mixins } from 'vue-chartjs'
+import { Pie } from 'vue-chartjs'
 import { fb, database } from "../../firebase.js";
 
 export default {
     extends: Pie,
-    mixins: [mixins.reactiveProp],
-
     data() {
         return {
             products: [], //store all details abt products offered by this company
@@ -48,8 +46,6 @@ export default {
                         this.products.push([doc.id, doc.data()]);
                     });
                 });
-
-
         },
         fetchPurchased: async function () {
             for (let i = 0; i < this.products.length; i++) {
@@ -58,15 +54,12 @@ export default {
             }
 
             this.datacollection.labels = this.productNames;
-            console.log(this.datacollection.labels)
-            /*console.log(this.chartdata.dataset[0].data) */
 
             await database
                 .collection("purchased")
                 .get()
                 .then((snapshot) => {
                     snapshot.forEach((doc) => {
-                        //console.log(doc.data().name)
                         for (let i = 0; i < this.datacollection.labels.length; i++) {
                             if (doc.data().name === this.datacollection.labels[i]) {
                                 this.pdtName = doc.data().name;
@@ -79,18 +72,12 @@ export default {
                                     }
                                 });
 
-                                //console.log(this.pdtPrice)
                                 var currSale = this.datacollection.datasets[0].data[i];
-                                console.log(currSale)
                                 this.datacollection.datasets[0].data[i] = currSale + (this.pdtQty * this.pdtPrice);
-                                console.log(this.datacollection.datasets[0].data[i])
                             }
                         }
                     });
-
                 });
-            console.log(this.datacollection.datasets[0].data)
-
         },
         renderpie() {
             this.renderChart(this.datacollection, this.options)
@@ -102,9 +89,5 @@ export default {
         await this.fetchPurchased();
         this.renderpie();
 
-    },
-    /* async mounted() {
-        await this.renderChart(this.datacollection, this.options);
-        console.log(this.datacollection)
-    } */
+    }
 }

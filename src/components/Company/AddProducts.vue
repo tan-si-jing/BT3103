@@ -81,20 +81,25 @@
 </template>
 
 <script>
-import {database} from '../../firebase';
+import {fb, database} from '../../firebase';
 import Footer from '../Footer.vue';
 
 export default {
   data(){
     return {
-      name: '',
-      price: 0,
-      img_url: '',
-      description: '',
-      ingred_spec: '',
-      pdt_spec: '',
-      care: '',
-      footprint: 0
+      product: {
+        name: null,
+        price: null,
+        img_url: null,
+        description: null,
+        ingred_spec: null,
+        pdt_spec: null,
+        care: null,
+        footprint: null,
+        points: null,
+        company_id: null,
+        company_name: null
+      }
     }
   },
   components: {
@@ -102,35 +107,32 @@ export default {
   },
   methods: {
     addProduct() {
-      // need to change company id, assumed to be 1 for now
-      // var company_id = fb.auth().currentUser;
-
-
-      let product = {}
-      product.name = this.name
-      product.price = this.price
-      product.img_url = this.img_url
-      product.description = this.description
-      product.ingred_spec = this.ingred_spec
-      product.pdt_spec = this.pdt_spec
-      product.care = this.care
-      product.footprint = this.footprint
-
-      // to calculate eco-points of product
-      var points = 1/(this.footprint) * 1000
-      product.points = points
-        
-      //product.pdt_id = pdt.id
-      //product.company_id = 
-      //product.company_name = 
-
-      // adding this product to products collection
-      database.collection("products").doc().set(product)
-
-
-
-
-      this.$router.push({ name: "companyHome"});
+      let empty = []
+      for (const field in Object.keys(this.product)) {
+        if (field !== "company_name" || field !== "company_id") {
+          if (this.product[field] == null) {
+            empty.push(this.product[field])
+          }
+        }
+      }
+      if (empty.length !== 0) {
+        alert("Please fill in all fields!")
+      } else {
+        var id = fb.auth().currentUser.uid;
+        database.collection("companies").doc(id).get()
+        .then((doc)=>{
+          this.product.company_id = doc.data().company_id
+          this.product.company_name = doc.data().name
+          database.collection("products").add(this.product)
+          .then(() => {
+            alert("Product added!")
+            this.$router.push("/company/home").then(() => {location.reload()});
+          })
+          .catch((error)=> {
+            alert(error)
+          })
+        })
+      }
     }
   }
 };
