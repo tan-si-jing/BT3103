@@ -15,7 +15,7 @@
       </div>
       <div id="cartlist">
         <ul>
-          <li style="padding: 30px"><b id="amount">Total: SGD ${{total}}</b></li>
+          <li style="padding: 30px"><b id="amount">Total: SGD ${{total.toFixed(2)}}</b></li>
           <li><input v-model="card_name" placeholder="Card Holder's Name" type="text"></li><br>
           <li><input v-model="card_number" placeholder="Card Number" type="number"></li><br>
           <li><input v-model="expiry" placeholder="Expiry Date" type="text"></li><br>
@@ -57,11 +57,15 @@ export default {
     },
     totalpoints: {
       type: Number
+    },
+    minusPoints: {
+      type: Number
     }
   },
   methods: {
     route: async function() {
-      if (this.card_name == '' || this.card_number == '' || this.expiry == '' || this.cvv == '') {
+      // when total amount is 0
+      if ( this.total!=0 && (this.card_name == '' || this.card_number == '' || this.expiry == '' || this.cvv == '')) {
         alert("Fill in all details before proceeding.");
       }
       else {
@@ -84,7 +88,7 @@ export default {
         // adding points from these purchases to user's points collected
         const doc = await database.collection("users").doc(userid).get()
         pts = doc.data().points
-        pts += this.totalpoints
+        pts += this.totalpoints - this.minusPoints
         database.collection("users").doc(userid).update({points: pts})
       // deleting cart from collection since purchase is completed
       database.collection("cart").doc(userid).delete();
@@ -93,7 +97,7 @@ export default {
       }
     },
     goback: function() {
-      this.$router.push({name: "cartshipping"});
+      this.$router.push({name: "cartitems"});
     }
   }
   };

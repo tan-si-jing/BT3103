@@ -34,7 +34,7 @@
             <span id="item_span"><img id="item_img" :src="item.img" /></span><br />
             <span id="item_span_middle"><b>{{ item.name }} (x {{ item.qty}})</b><br />
             <a id="co2footprint"></a><span> {{ item.footprint }}g</span></span><br />
-            <span id="item_span"> ${{item.price*item.qty}}</span><br />
+            <span id="item_span"> ${{(item.price*item.qty).toFixed(2)}}</span><br />
           </li><br><br>
         </ul>
         </div>
@@ -78,6 +78,9 @@ export default {
     },
     totalpoints: {
       type: Number
+    },
+    minusPoints: {
+      type: Number
     }
   },
   methods: {
@@ -87,7 +90,7 @@ export default {
         alert("Fill in all details before proceeding.");
       }
       else {
-      this.$router.push({ name: "cartpayment", params: {products: this.products, total: this.total, totalpoints: this.totalpoints}});
+      this.$router.push({ name: "cartpayment", params: {products: this.products, total: this.total, totalpoints: this.totalpoints, minusPoints: this.minusPoints}});
       }
     }
   }
