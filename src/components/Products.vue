@@ -42,7 +42,6 @@
               width="250px"
               height="250px"
               :src="product[1].img_url"
-              v-on:click="notLoggedIn"
               style="cursor: pointer;"
             />
             <br />
@@ -80,8 +79,6 @@ export default {
       originalProducts: [],
       shops: [],
       optionsAPP: ["PRICE RANGE", "SHOP"],
-      //user: fb.auth().currentUser,
-      //user_id: user.uid
       show: true,
       price:{
         minimum: 0,
@@ -146,7 +143,6 @@ export default {
       this.products = this.originalProducts;
       var shopFilteredProducts = this.products.filter((product) => product[1].company_name == name)
       this.products = shopFilteredProducts;
-      console.log(this.products)
     },
 
     clearProducts: function(){

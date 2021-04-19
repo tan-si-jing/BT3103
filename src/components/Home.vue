@@ -2,9 +2,13 @@
 	<div class="homepage">
 		<Header/>
 		<div class="introduction">
-			<h2> About us </h2>
-			<p class="intro-content">We are a group of NUS students who are passionate about doing our part towards reducing an individual’s carbon footprint which is a major component affecting climate change, as Singapore represents about 0.11 per cent of global emissions. We would like to achieve that through providing a platform for environmentally friendly business to promote their eco-friendly products and at the same time, raising awareness on the importance to conserving out environement.
-			We have also created a dashboard with regards to the air pollutant level in Singapore as shown in the link below! <br/>
+			<h2 style="font-size:30px; font-weight: bold; font-family: 'EB Garamond';"> About us </h2> <br>
+			<p class="intro-content">We are a group of NUS students who are passionate about reducing Singapore's 
+			carbon footprint, a major component affecting climate change, as Singapore represents about 
+			0.11 per cent of global emissions. Hence, we have created this centralised platform for environmentally friendly 
+			businesses to promote their eco-friendly products and at the same time, raise awareness on the 
+			importance of conserving our environment. Click the link below to find out more about the air pollution 
+			levels in Singapore. <br><br>
 			<a class= "link" href = "https://bt3103-project-environment.herokuapp.com/" target="_blank"> {{this.dashboard}} </a> 
 			</p>
 			<p>Happy Shopping!</p>
@@ -41,7 +45,7 @@
 		<ul>
 			<li v-for="shop in shopsList" v-bind:key="shop.name">
 				<img v-bind:src="shop.img_url" :id="shop.name" v-on:click="route($event)">
-				<h2 v-on:click="route($event)"> {{shop.name}} </h2>
+				<h2 class="shopName" v-on:click="route($event)"> {{shop.name}} </h2>
 			</li>
 		</ul>
 		<Footer/>
@@ -62,12 +66,10 @@ export default({
 			dashboard: "https://bt3103-project-environment.herokuapp.com/"
 		}
 	},
-
 	components: {
 		Header,
 		Footer
 	},
-
 	methods: {
 		fetchItems: function(){
 			database.collection("companies").get().then((snapshot) =>{
@@ -120,10 +122,14 @@ export default({
 	background-color: rgba(65, 119, 110, 0.329);
 	margin: 0px 0px 5px 0px;
 	text-align: center;
-	padding: 20px 250px 20px 250px;
-	font-family: 'EB Garamond';
-	font-weight: bold;
+	padding: 50px 200px;
 }
+
+p {
+	font-size: 18px;
+	color: black;
+}
+
 a:link {
 	color:green;
 	text-decoration: none;
@@ -198,7 +204,7 @@ img {
 	cursor: pointer;
 }
 
-h2 {
+.shopName {
 	font-family: 'EB Garamond';
 	font-size: 20px;
 	color: rgba(0, 86, 94, 1);

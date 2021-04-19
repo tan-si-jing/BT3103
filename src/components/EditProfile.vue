@@ -91,18 +91,21 @@ export default {
               email: this.email
             })
             .catch((error) => {
-                alert("Error updating document: " +  error);
+              alert("Error updating document: " +  error);
             });
         }
 
         if (this.name !== null) {
           database.collection("users").doc(user.uid).update({
-            name:this.name
-          })
+              name:this.name
+            })
+            .catch((error) => {
+              console.log("Error updating document: " +  error);
+            });
         }
         
-        location.reload()
         alert("Updated!")
+        location.reload()
       },
       updatePassword(){
         var user = fb.auth().currentUser;

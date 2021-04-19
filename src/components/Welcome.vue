@@ -2,7 +2,7 @@
   <div id="welcome">
     <div id="greeting">Welcome back, {{ name }}!</div>
     <br>
-    <div id="thanks">Thank you for being a part of our community to preserve our mother Earth.</div>
+    <div id="thanks">Thank you for being a part of our community to preserve our Mother Earth.</div>
     <br>
     <div id="points">
       You have {{points}} EcoPoints

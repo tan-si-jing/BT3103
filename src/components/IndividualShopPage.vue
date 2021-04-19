@@ -14,9 +14,7 @@
           <li style="text-decoration: underline; text-align: left">Production Materials:</li>
           <li style="text-align: left">{{ shopInfo[0].production_materials }}</li>
           <li style="text-decoration: underline; text-align: left">Contact us:</li>
-          <li
-            style="text-align: left"
-          >Contact us at {{ shopInfo[0].contact }} or {{ shopInfo[0].email }}</li>
+          <li style="text-align: left">Contact us at {{ shopInfo[0].contact }} or {{ shopInfo[0].email }}</li>
         </ul>
       </div>
 

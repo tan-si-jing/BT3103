@@ -19,15 +19,15 @@
                 <div v-if="this.liked.length === 0" style="padding: 15px;">No products liked yet.</div>
                 <ul v-else v-for="(item,index) in this.liked" :key="index">
                 <li v-on:click="route($event)" :id="item.id">
-                    <img :src="item.img" width="90" height="90">
-                    <div id="pdtCell" style="display: grid; margin: 2px 10px; align-content: start; text-align: left;">
-                        <h5 class="pdtName">{{item.name}}</h5>
-                        <span style="justify-self: self-start;">
-                            <span id="co2footprint"></span> {{item.footprint}}g
+                    <img :id="item.id" :src="item.img" width="90" height="90">
+                    <div class="pdtCell" :id="item.id">
+                        <h5 :id="item.id" class="pdtName">{{item.name}}</h5>
+                        <span :id="item.id" style="justify-self: self-start;">
+                            <span :id="item.id" class="co2footprint"></span> {{item.footprint}}g
                         </span>
                     </div>
-                    <div style="flex: auto; text-align: right; margin: 2px 0px;">
-                    <h5 style="font-size: 17px; padding:0px 15px;">${{parseFloat(item.price).toFixed(2)}}</h5>
+                    <div :id="item.id" style="flex: auto; text-align: right; margin: 2px 0px;">
+                    <h5 :id="item.id" style="font-size: 17px; padding:0px 15px;">${{parseFloat(item.price).toFixed(2)}}</h5>
                     </div>
                 </li>
                 </ul>
@@ -115,13 +115,19 @@ li {
     display: flex;
     padding: 15px;
     margin:10px;
+    cursor: pointer;
 }
 .pdtName {
     font-size: 17px; 
-    padding:0px; 
-    cursor: pointer;
+    padding:0px;
 }
-#co2footprint {
+.pdtCell {
+    display: grid; 
+    margin: 2px 10px; 
+    align-content: start; 
+    text-align: left;
+}
+.co2footprint {
     content: url('https://api.iconify.design/iwwa:co2.svg?height=30');
     vertical-align: -0.65em;
 }

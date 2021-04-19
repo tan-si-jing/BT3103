@@ -17,7 +17,7 @@
           <li style="text-align: left">{{ shopInfo[0].description }}</li>
           <li style="text-decoration: underline; text-align: left">Production Materials:</li>
           <li style="text-align: left">{{ shopInfo[0].production_materials }}</li>
-          <li style="text-decoration: underline; text-align: left">Contact us:</li>
+          <li style="text-decoration: underline; text-align: left">Contact us:</li> <br>
           <li style="text-align: left">Contact us at {{ shopInfo[0].contact }} or {{ shopInfo[0].email }}</li>
         </ul>
       </div>
@@ -117,7 +117,7 @@ export default {
   left: 0px;
 }
 #picture {
-  width: 55%;
+  width: 50%;
   height: 35%;
   left: 5%;
   top: 5%;
@@ -134,7 +134,7 @@ export default {
 }
 #shopTitle {
   position: absolute;
-  left: 70%;
+  left: 65%;
   top: 4%;
   font-family: EB Garamond;
   font-style: normal;
@@ -147,7 +147,7 @@ export default {
 }
 #shopInfo {
   position: absolute;
-  left: 64%;
+  left: 60%;
   top: 10%;
   font-family: EB Garamond;
   font-style: normal;
