@@ -1,8 +1,8 @@
 # BT3103
 
 # Environment
-- A website for environmental friendly products (e-commerce)
-- Platform for environmentally-friendly companies to sell their products 
+- A website for environmental-friendly products (e-commerce)
+- Platform for environmentally friendly companies to sell their products 
 - Each product has a description on how it’s sourced and its carbon footprint
 
 # Users: 
@@ -19,7 +19,6 @@
   - Users can view their purchase history
   - Point system: Reward for buying more environmentally-friendly products
   - Leaderboard amongst users to encourage a friendly competition
-  - Fund-raising for beneficiaries that promote environmentally-friendly causes
   - Newsfeed: articles etc.
   - Search filter/Sort: product prices, categories etc.
   
@@ -34,5 +33,5 @@
 # Benefits: 
 - Helps target users source for products with lower carbon footprint more conveniently
 - Increase awareness of the amount of carbon footprint taken to produce each product
-- Encourage a sustainable lifestyle through usage of environmentally-friendly products 
-- Promote environmentally-friendly companies, help them reach a larger consumer base
+- Encourage a sustainable lifestyle through usage of environmentally friendly products 
+- Promote environmentally friendly companies, help them reach a larger consumer base
