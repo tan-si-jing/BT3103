@@ -13,7 +13,6 @@
 
 <script>
 import { fb, database } from "../../firebase.js";
-
 export default {
   data() {
     return {

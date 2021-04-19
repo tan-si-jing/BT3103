@@ -104,31 +104,25 @@ export default {
   height: 200px;
   align-self: center;
 }
-
 ul {
   list-style-type: none;
 }
-
 .card {
   padding: 30px;
-  margin: 30px;
+  margin: 40px 30px;
   background: #c1d9ca;
   border-radius: 15px;
 }
-
 h5 {
-  padding: 10px;
+  padding:10px;
 }
-
 #pdtname {
   padding: 2%;
 }
-
 #chart {
-  width: 80%;
+  width:80%;
   margin: auto;
 }
-
 #empty {
   margin: auto;
   margin-top: 50px;
@@ -137,10 +131,9 @@ h5 {
   border-radius: 20px;
   background: rgb(237, 246, 249);
   font-size: 20px;
-  font-weight: bold;
+  font-weight:bold;
   margin-bottom: 50px;
 }
-
 #co2footprint {
   content: url("https://api.iconify.design/iwwa:co2.svg?height=30");
   vertical-align: -0.45em;
