@@ -32,9 +32,9 @@
           />
           <br />
           <span class="name" v-on:click="route($event)" v-bind:id="product[0]" style="cursor: pointer;">
-            {{ product[1].name }}
-            <likeBtn v-bind:id="product[0]" v-bind:liked="likedProducts"></likeBtn>
+            {{ product[1].name }}  
           </span><br>
+          <likeBtn v-bind:id="product[0]" v-bind:liked="likedProducts"></likeBtn>
           <span id="cost">${{ product[1].price }}</span>
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
           <span id="productPoints">
