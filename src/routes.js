@@ -193,12 +193,4 @@ router.beforeEach((to, from, next) => {
   }
 });
 
-// <<<<<<< Updated upstream
-// <<<<<<< Updated upstream
-
-// =======
-// >>>>>>> Stashed changes
 export default router;
-// =======
-// export default router;
-// >>>>>>> Stashed changes

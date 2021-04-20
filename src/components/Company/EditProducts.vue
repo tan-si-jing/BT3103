@@ -73,12 +73,12 @@ import Footer from '../Footer.vue';
 export default {
   data(){
     return {
-      name: '',
-      price: 0,
-      description: '',
-      ingred_spec: '',
-      pdt_spec: '',
-      care: '',
+      name: null,
+      price: null,
+      description: null,
+      ingred_spec: null,
+      pdt_spec: null,
+      care: null,
       updateProduct: {}
     }
   },
@@ -111,7 +111,7 @@ export default {
       if (this.care) {
         this.updateProduct.care = this.care;
       }
-      database.collection("products").doc(this.doc_id).set(this.updateProduct)
+      database.collection("products").doc(this.doc_id).update(this.updateProduct)
       this.$router.push("/company/home");
     }
   }
