@@ -74,7 +74,7 @@
               <label>Product Specifications</label>
               <input
                 type="text"
-                v-model="product.pdt_spec"
+                v-model="product.product_spec"
                 placeholder="Eg. 10cm x 8cm x 5cm"
                 class="form-control"
               />
