@@ -126,4 +126,7 @@ export default {
     background-color: #516e5c;
     border-color: #516e5c;
 }
+.profile-content {
+  height: 1000px;
+}
 </style>
