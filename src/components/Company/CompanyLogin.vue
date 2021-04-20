@@ -101,6 +101,7 @@ label {
 }
 .login {
     width: 50%;
+    height: 600px;
     margin-left: auto;
     margin-right: auto;
     padding: 130px;

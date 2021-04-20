@@ -31,11 +31,11 @@
             width="250px"
             height="250px"
             :src="product[1].img_url"
-            v-on:click="notLoggedIn"
+            v-on:click="route($event)"
             style="cursor: pointer;"
           />
           <br />
-          <span id="name" v-on:click="notLoggedIn" style="cursor: pointer;">
+          <span id="name" v-on:click="route($event)" style="cursor: pointer;">
             {{ product[1].name }}
           </span><br>
           <span id="cost">${{ product[1].price }}</span>
@@ -98,9 +98,10 @@ export default {
           });
         });
     },
-    notLoggedIn: function() {
-      alert("Please log in to view this product.")
-    },
+    route: function(event) {
+      let product_id = event.target.getAttribute("id");
+      this.$router.push({ name: "product", params: { id: product_id } });
+    }
   },
   created() {
     this.fetchItems();
@@ -148,11 +149,12 @@ export default {
 #shopInfo {
   position: absolute;
   left: 60%;
+  right:4%;
   top: 10%;
   font-family: EB Garamond;
   font-style: normal;
   font-weight: 500;
-  font-size: 22px;
+  font-size: 20px;
   line-height: 39px;
   text-align: justify;
   color: #26413c;
