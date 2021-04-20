@@ -61,16 +61,16 @@ export default {
 
 <style scoped>
 .clicked {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   border: none;
   background-color: #d8e2dc;
   color: red;
 }
 
 .unclicked {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   border: none;
   background-color: #d8e2dc;
   color: white;
