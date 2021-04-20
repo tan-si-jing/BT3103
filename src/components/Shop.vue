@@ -7,7 +7,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
       <p id="picture">
-        <img id="shopImage" v-bind:src="shopInfo[0].img_url" />
+        <img id="shopImage" v-bind:src="shopInfo[0].img_url"/>
       </p>
       <p id="shopTitle">{{ shopInfo[0].name }}</p>
 
@@ -35,7 +35,7 @@
             style="cursor: pointer;"
           />
           <br />
-          <span id="name" v-on:click="route($event)" style="cursor: pointer;">
+          <span class="name" v-on:click="route($event)" v-bind:id="product[0]" style="cursor: pointer;">
             {{ product[1].name }}
           </span><br>
           <span id="cost">${{ product[1].price }}</span>

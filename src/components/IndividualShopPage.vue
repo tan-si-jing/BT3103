@@ -31,7 +31,7 @@
             style="cursor: pointer;"
           />
           <br />
-          <span id="name" v-on:click="route($event)" style="cursor: pointer;">
+          <span class="name" v-on:click="route($event)" v-bind:id="product[0]" style="cursor: pointer;">
             {{ product[1].name }}
             <likeBtn v-bind:id="product[0]" v-bind:liked="likedProducts"></likeBtn>
           </span><br>
@@ -220,7 +220,7 @@ export default {
   height: 3%;
   border: none;
 }
-#name {
+.name {
   text-align: center;
   align-items: center;
   font-family: EB Garamond;
