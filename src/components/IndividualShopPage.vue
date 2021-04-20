@@ -121,7 +121,7 @@ export default {
   position: relative;
   background: #d8e2dc;
   width: 100%;
-  height: 1500px;
+  height: 2000px;
   left: 0px;
 }
 #picture {
