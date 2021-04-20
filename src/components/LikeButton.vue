@@ -1,11 +1,11 @@
 <template>
-  <span>
+  <a>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <Button
-      v-bind:class="{ clicked: red, unclicked: !red }"
+      v-bind:class="{ clicked: isClicked, unclicked: !isClicked }"
       v-on:click="
         toggleLike();
         onChange();
@@ -13,7 +13,7 @@
     >
       <i class="fa fa-heart"></i>
     </Button>
-  </span>
+  </a>
 </template>
 
 <script>
@@ -22,43 +22,39 @@ import firebase from "firebase/app";
 export default {
   data() {
     return {
-      userid: null,
-      isClicked: this.liked.includes(this.id)
+      isClicked: false,
     };
-  },
-  computed: {
-    red: function() {
-      console.log(this.likedPdts)
-      console.log(this.liked)
-      return this.liked.includes(this.id) || this.isClicked
-    }
   },
   methods: {
     toggleLike: function () {
       this.isClicked = !this.isClicked;
     },
     onChange: function () {
-      this.userid = fb.auth().currentUser.uid;
       if (this.isClicked) {
         database
           .collection("users")
           .doc(this.userid)
           .update({
             liked: firebase.firestore.FieldValue.arrayUnion(this.id),
-          }).then(() => {location.reload()});
+          });
       } else {
         database
           .collection("users")
           .doc(this.userid)
           .update({
-            liked: firebase.firestore.FieldValue.arrayRemove(this.id)
-          }).then(() => {location.reload()});
+            liked: firebase.firestore.FieldValue.arrayRemove(this.id),
+          });
       }
-    }
+    },
   },
   props: {
     id: String,
-    liked: Array
+  },
+  created() {
+    this.userid = fb.auth().currentUser.uid;
+    database.collection("users").doc(this.userid).get().then((doc) => {
+      this.isClicked = doc.data().liked.includes(this.id);
+    })
   }
 };
 </script>
