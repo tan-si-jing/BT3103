@@ -44,7 +44,7 @@
 		<ul>
 			<li v-for="shop in shopsList" v-bind:key="shop.name">
 				<img v-bind:src="shop.img_url" :id="shop.name" v-on:click="route($event)">
-				<h2 class="shopName" v-on:click="route($event)"> {{shop.name}} </h2>
+				<h2 class="shopName" v-bind:id="shop.name" v-on:click="route($event)" > {{shop.name}} </h2>
 			</li>
 		</ul>
 		<Footer/>
