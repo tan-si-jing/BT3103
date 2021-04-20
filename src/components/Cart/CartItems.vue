@@ -39,7 +39,7 @@
               </li>
               <li>${{ item.price }}</li>
               <li>{{ item.qty }}</li>
-              <li>${{ item.price * item.qty }}</li>
+              <li>${{ (item.price * item.qty).toFixed(2) }}</li>
               <li>{{ item.qty * item.points }}</li>
             </ul>
           </li>
