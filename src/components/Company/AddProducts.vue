@@ -135,7 +135,7 @@ export default {
         img_url: null,
         description: null,
         ingred_spec: null,
-        pdt_spec: null,
+        product_spec: null,
         care: null,
         footprint: null,
         points: null,
