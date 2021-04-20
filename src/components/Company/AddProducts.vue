@@ -1,91 +1,133 @@
 <template>
-  <div style="min-height: 100vh;">
-  <div class="editDescription" style="margin: 100px;">    
-    <div class="intro h-100">
-      <div class="h-100 align-items-center">
-        <h3 style="margin: 40px;">Add Product Details</h3>
+  <div style="min-height: 100vh">
+    <div class="editDescription" style="margin: 100px">
+      <div class="intro h-100">
+        <div class="h-100 align-items-center">
+          <h3 style="margin: 40px">Add Product Details</h3>
+        </div>
       </div>
-    </div>
 
-    <div>
-      <div class="container">
-
+      <div>
+        <div class="container">
           <div>
-            <div class="form-group"> 
+            <div class="form-group">
               <label>Product Name</label>
-              <input type="text"  v-model="product.name" placeholder="Name" class="form-control">             
+              <input
+                type="text"
+                v-model="product.name"
+                placeholder="Name"
+                class="form-control"
+              />
             </div>
           </div>
 
           <div>
             <div class="form-group">
               <label>Price</label>
-              <input type="text" v-model="product.price" placeholder="Eg. 5.60" class="form-control">
+              <input
+                type="text"
+                v-model="product.price"
+                placeholder="Eg. 5.60"
+                class="form-control"
+              />
             </div>
           </div>
 
           <div>
             <div class="form-group">
               <label>Image URL</label>
-              <input type="text" v-model="product.img_url" placeholder="Insert image URL" class="form-control">
+              <input
+                type="text"
+                v-model="product.img_url"
+                placeholder="Insert image URL"
+                class="form-control"
+              />
             </div>
           </div>
 
           <div>
             <div class="form-group">
               <label>Description</label>
-              <textarea type="text"  v-model="product.description" placeholder="Describe your product" class="form-control"/>
+              <textarea
+                type="text"
+                v-model="product.description"
+                placeholder="Describe your product"
+                class="form-control"
+              />
             </div>
           </div>
 
           <div>
             <div class="form-group">
               <label>Ingredients Specifications</label>
-              <textarea type="text" v-model="product.ingred_spec" placeholder="Let consumers know what it is made up of!" class="form-control"/>
+              <textarea
+                type="text"
+                v-model="product.ingred_spec"
+                placeholder="Let consumers know what it is made up of!"
+                class="form-control"
+              />
             </div>
           </div>
 
           <div>
             <div class="form-group">
               <label>Product Specifications</label>
-              <input type="text" v-model="product.pdt_spec" placeholder="Eg. 10cm x 8cm x 5cm" class="form-control">
+              <input
+                type="text"
+                v-model="product.pdt_spec"
+                placeholder="Eg. 10cm x 8cm x 5cm"
+                class="form-control"
+              />
             </div>
           </div>
 
           <div>
             <div class="form-group">
               <label>Caring For Me</label>
-              <input type="text" v-model="product.care" placeholder="Eg. Store in cool places." class="form-control">
-            </div>
-          </div>
-
-           <div>
-            <div class="form-group">
-              <label>Carbon footprint (in grams)</label>
-              <input type="text" v-model="product.footprint" placeholder="Carbon footprint of the product" class="form-control">
+              <input
+                type="text"
+                v-model="product.care"
+                placeholder="Eg. Store in cool places."
+                class="form-control"
+              />
             </div>
           </div>
 
           <div>
-            <div class="form-group" style="text-align: right;">
-              <input type="submit" v-on:click="addProduct()" value="Save Changes" class="btn btn-primary">
+            <div class="form-group">
+              <label>Carbon footprint (in grams)</label>
+              <input
+                type="text"
+                v-model="product.footprint"
+                placeholder="Carbon footprint of the product"
+                class="form-control"
+              />
             </div>
           </div>
-         
-        </div>
-      </div> 
 
+          <div>
+            <div class="form-group" style="text-align: right">
+              <input
+                type="submit"
+                v-on:click="addProduct()"
+                value="Save Changes"
+                class="btn btn-primary"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <Footer/>         
-    </div>
+    <Footer />
+  </div>
 </template>
 
 <script>
-import {fb, database} from '../../firebase';
-import Footer from '../Footer.vue';
+import { fb, database } from "../../firebase";
+import Footer from "../Footer.vue";
 
 export default {
-  data(){
+  data() {
     return {
       product: {
         name: null,
@@ -98,45 +140,61 @@ export default {
         footprint: null,
         points: null,
         company_id: null,
-        company_name: null
-      }
-    }
+        company_name: null,
+        pdt_id: null,
+      },
+    };
   },
   components: {
-    Footer
+    Footer,
   },
   methods: {
     addProduct() {
-      let empty = []
+      let empty = [];
       for (const field in Object.keys(this.product)) {
         if (field !== "company_name" || field !== "company_id") {
           if (this.product[field] === null) {
-            empty.push(this.product[field])
+            empty.push(this.product[field]);
           }
         }
       }
-      
+
       if (empty.length != 0) {
-        alert("Please fill in all fields!")
+        alert("Please fill in all fields!");
       } else {
         var id = fb.auth().currentUser.uid;
-        database.collection("companies").doc(id).get()
-        .then((doc)=>{
-          this.product.company_id = doc.data().company_id
-          this.product.company_name = doc.data().name
-          this.product.points = parseInt(1/parseInt(this.product.footprint)*1000)
-          database.collection("products").add(this.product)
-          .then(() => {
-            alert("Product added!")
-            this.$router.push("/company/home").then(() => {location.reload()});
-          })
-          .catch((error)=> {
-            alert(error)
-          })
-        })
+        database
+          .collection("companies")
+          .doc(id)
+          .get()
+          .then((doc) => {
+            this.product.company_id = doc.data().company_id;
+            this.product.company_name = doc.data().name;
+            this.product.points = parseInt(
+              (1 / parseInt(this.product.footprint)) * 1000
+            );
+
+            database
+              .collection("products")
+              .add(this.product)
+              .then((doc) => {
+                this.product.pdt_id = doc.id;
+                doc
+                  .update({ pdt_id: this.product.pdt_id })
+                  .then(() => {
+                    alert("Product added!");
+                    this.$router.push("/company/home").then(() => {
+                      location.reload();
+                    });
+                  })
+                  .catch((error) => {
+                    alert(error);
+                  });
+              });
+          });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -147,9 +205,9 @@ export default {
 }
 
 .btn-primary {
-  background-color: #688A75;
-  border-color: #688A75;
-  font-family: 'Work Sans';
+  background-color: #688a75;
+  border-color: #688a75;
+  font-family: "Work Sans";
   color: white;
 }
 
