@@ -124,9 +124,7 @@ export default {
 #content {
   position: relative;
   background: #d8e2dc;
-  width: 100%;
   height: 1500px;
-  left: 0px;
 }
 #picture {
   width: 50%;

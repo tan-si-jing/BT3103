@@ -156,11 +156,12 @@ export default {
 #shopInfo {
   position: absolute;
   left: 60%;
+  right:4%;
   top: 10%;
   font-family: EB Garamond;
   font-style: normal;
   font-weight: 500;
-  font-size: 22px;
+  font-size: 20px;
   line-height: 39px;
   text-align: justify;
   color: #26413c;
